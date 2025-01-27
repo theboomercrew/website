@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Boomer Crew Series by Peter Seddon</title>
+    <style>
+        :root {
+            --primary: #2A4B7C; /* Navy from inferred cover colors */
+            --accent: #C41E3A; /* Crimson red for highlights */
+            --gold: #D4AF37; /* Gold accent */
+            --cream: #FFFDD0;
+        }
+
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            background: var(--cream);
+        }
+
+        .header {
+            background: var(--primary);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px var(--accent);
+            margin: 0;
+        }
+
+        .tagline {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .book-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .synopsis {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            background: linear-gradient(to right, var(--cream) 50%, white 50%);
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        /* Retro crime theme elements */
+        .border-decoration {
+            height: 10px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--gold),
+                var(--gold) 10px,
+                var(--primary) 10px,
+                var(--primary) 20px
+            );
+        }
+    </style>
+</head>
+<body>
+    <div class="border-decoration"></div>
+    
+    <header class="header">
+        <h1>THE BOOMER CREW SERIES</h1>
+        <p class="tagline">Last of the Summer Wine meets Ocean's Eleven</p>
+    </header>
+
+    <div class="author-section">
+        <!-- Author image placeholder -->
+        <img src="Author image 1.jpg" alt="Peter Seddon" style="width:200px;border:5px solid var(--primary);">
+        <div>
+            <h2 style="color: var(--primary);">About the Author</h2>
+            <p>PETER SEDDON brings his signature wit to this hilarious crime caper series featuring Britain's most unlikely would-be criminals.</p>
+        </div>
+    </div>
+
+    <div class="book-grid">
+        <div class="book-card">
+            <h3>THE BOOMER CREW</h3>
+            <p>Where it all begins...<br>
+            "A bank heist gone wonderfully wrong"</p>
+            <!-- Book 1 cover placeholder -->
+        </div>
+        <div class="book-card">
+            <h3>THE JOKE THAT KILLED</h3>
+            <p>The Crew returns!<br>
+            "Double trouble and twice the laughs"</p>
+            <!-- Book 2 cover placeholder -->
+        </div>
+        <div class="book-card">
+            <h3>DOUBLE UP OR QUIT</h3>
+            <p>Their biggest gamble yet<br>
+            "A Monaco rollercoaster ride!"</p>
+            <!-- Book 3 cover placeholder -->
+        </div>
+    </div>
+
+    <div class="synopsis">
+        <h2>The Hilarious Crime Spree That Captivated Britain</h2>
+        <p>When three pensioners accidentally become crime-stoppers, they find themselves indebted to a local mob boss. Follow Blakey, Finley, and Geoff through a series of misadventures involving:</p>
+        <ul>
+            <li>Failed bank heists</li>
+            <li>Faked deaths</li>
+            <li>Prison swaps</li>
+            <li>Football scandals</li>
+            <li>Monaco mayhem</li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; padding: 2rem;">
+        <button class="cta-button">GET THE SERIES NOW</button>
+    </div>
+
+    <div class="border-decoration"></div>
+</body>
+</html>
