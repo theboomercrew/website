@@ -43,20 +43,36 @@
             padding: 2rem;
         }
 
-        .book-card {
-            padding: 1rem;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            min-height: 500px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            position: relative;
-            overflow: hidden;
-        }
+
+.book-card {
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 300px; /* Standard paperback width */
+    height: 450px; /* 300px * 1.5 (2:3 ratio) */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto; /* Center cards in grid */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .book-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .book-card {
+        width: 250px;
+        height: 375px;
+    }
+}
+
 
         .book-card::after {
             content: '';
