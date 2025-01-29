@@ -5,9 +5,9 @@
     <title>The Boomer Crew Series by Peter Seddon</title>
     <style>
         :root {
-            --primary: #2A4B7C; /* Navy from inferred cover colors */
-            --accent: #C41E3A; /* Crimson red for highlights */
-            --gold: #D4AF37; /* Gold accent */
+            --primary: #2A4B7C;
+            --accent: #C41E3A;
+            --gold: #D4AF37;
             --cream: #fad15e;
         }
 
@@ -44,11 +44,36 @@
         }
 
         .book-card {
-            background: white;
             padding: 1rem;
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-align: center;
+            min-height: 500px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 60%);
+            z-index: 1;
+        }
+
+        .book-card * {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         .synopsis {
@@ -76,7 +101,6 @@
             cursor: pointer;
         }
 
-        /* Retro crime theme elements */
         .border-decoration {
             height: 10px;
             background: repeating-linear-gradient(
@@ -98,7 +122,6 @@
     </header>
 
     <div class="author-section">
-        <!-- Author image placeholder -->
         <img src="Author image 1.jpg" alt="Peter Seddon" style="width:200px;border:5px solid var(--primary);">
         <div>
             <h2 style="color: var(--primary);">About the Author</h2>
@@ -107,23 +130,20 @@
     </div>
 
     <div class="book-grid">
-        <div class="book-card">
+        <div class="book-card" style="background-image: url('Book 1 book cover.jpg')">
             <h3>THE BOOMER CREW</h3>
             <p>Where it all begins...<br>
             "A bank heist gone wonderfully wrong"</p>
-            <!-- Book 1 cover placeholder -->
         </div>
-        <div class="book-card">
+        <div class="book-card" style="background-image: url('Book 2 book cover.jpg')">
             <h3>THE JOKE THAT KILLED</h3>
             <p>The Crew returns!<br>
             "Double trouble and twice the laughs"</p>
-            <!-- Book 2 cover placeholder -->
         </div>
-        <div class="book-card">
+        <div class="book-card" style="background-image: url('Book 3 book cover.jpg')">
             <h3>DOUBLE UP OR QUIT</h3>
             <p>Their biggest gamble yet<br>
             "A Monaco rollercoaster ride!"</p>
-            <!-- Book 3 cover placeholder -->
         </div>
     </div>
 
