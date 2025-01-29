@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boomer Crew Series by Peter Seddon</title>
     <style>
         :root {
@@ -18,31 +19,36 @@
         }
 
         .header {
+            background: var(--primary);
             padding: 1.5rem;
-            border-bottom-width: 3px;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
         }
 
         h1 {
+            color: white;
             font-size: 2rem;
+            text-shadow: 2px 2px var(--accent);
+            margin: 0;
             line-height: 1.2;
         }
 
         .tagline {
             color: var(--gold);
             font-style: italic;
+            margin: 0.5rem 0 0;
         }
 
- .book-grid {
+        .book-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
             padding: 1.5rem;
         }
 
-
- .book-card {
+        .book-card {
             width: 80vw;
-            height: calc(80vw * 1.5); /* Maintain 2:3 aspect ratio */
+            height: calc(80vw * 1.5);
             max-width: 300px;
             max-height: 450px;
             margin: 0 auto;
@@ -58,8 +64,7 @@
             overflow: hidden;
         }
 
-
-.book-card::after {
+        .book-card::after {
             content: '';
             position: absolute;
             top: 0;
@@ -75,14 +80,65 @@
             z-index: 2;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin: 0.5rem 0;
         }
 
-         @media (min-width: 768px) {
-            .book-grid {
-                grid-template-columns: repeat(3, 1fr);
-                padding: 2rem;
-            }
-            
+        .synopsis {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .author-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(to right, var(--cream));
+        }
+
+        .author-section img {
+            width: 150px;
+            height: 150px;
+            border: 5px solid var(--primary);
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            width: 90%;
+            max-width: 300px;
+            margin: 0 auto;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .border-decoration {
+            height: 8px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--gold),
+                var(--gold) 10px,
+                var(--primary) 10px,
+                var(--primary) 20px
+            );
+        }
+
+        @media (min-width: 768px) {
             .header {
                 padding: 2rem;
             }
@@ -91,10 +147,10 @@
                 font-size: 2.5rem;
             }
 
-            .author-section {
-                flex-direction: row;
-                text-align: left;
+            .book-grid {
+                grid-template-columns: repeat(3, 1fr);
                 padding: 2rem;
+                gap: 2rem;
             }
 
             .book-card {
@@ -103,36 +159,22 @@
                 max-width: none;
                 max-height: none;
             }
-        }
-        
-       .synopsis {
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
 
+            .author-section {
+                flex-direction: row;
+                text-align: left;
+                padding: 2rem;
+            }
 
-     .author-section {
-            flex-direction: column;
-            text-align: center;
-            padding: 1.5rem;
-            gap: 1rem;
-        }
+            .author-section img {
+                width: 200px;
+                height: 200px;
+            }
 
-        .cta-button {
-            width: 90%;
-            max-width: 300px;
-            margin: 0 auto;
-            display: block;
-        }
-
-                .author-section img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-        }
-
-        .border-decoration {
-            height: 8px;
+            .synopsis {
+                padding: 2rem;
+                margin: 2rem 0;
+            }
         }
     </style>
 </head>
@@ -140,12 +182,12 @@
     <div class="border-decoration"></div>
     
     <header class="header">
-        <h1>THE BOOMER CREW</h1>
-        <p class="tagline">The Hilarious Crime Spree That Captivated Britain</p>
+        <h1>THE BOOMER CREW SERIES</h1>
+        <p class="tagline">Last of the Summer Wine meets Ocean's Eleven</p>
     </header>
 
     <div class="author-section">
-        <img src="Author image 2.jpg" alt="Peter Seddon" style="width:600px;border:5px solid var(--primary);">
+        <img src="Author image 1.jpg" alt="Peter Seddon">
         <div>
             <h2 style="color: var(--primary);">About the Author</h2>
             <p>Peter Seddon brings his signature wit to this hilarious crime caper series featuring Britain's most unlikely would-be criminals.</p>
@@ -171,7 +213,7 @@
     </div>
 
     <div class="synopsis">
-        <h2>They're Old Enough to Know Better</h2>
+        <h2>The Hilarious Crime Spree That Captivated Britain</h2>
         <p>When three pensioners accidentally become crime-stoppers, they find themselves indebted to a local mob boss. Follow Blakey, Finley, and Geoff through a series of misadventures involving:</p>
         <ul>
             <li>Failed bank heists</li>
@@ -182,8 +224,8 @@
         </ul>
     </div>
 
-    <div style="text-align: center; padding: 2rem;">
-             <a href="https://www.amazon.co.uk/dp/B0C7DMN77C" class="cta-button">GET THE SERIES NOW</a>
+    <div style="text-align: center; padding: 1.5rem;">
+        <a href="https://www.amazon.co.uk/dp/B0C7DMN77C" class="cta-button">GET THE SERIES NOW</a>
     </div>
 
     <div class="border-decoration"></div>
