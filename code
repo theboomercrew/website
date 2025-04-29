@@ -240,9 +240,9 @@
             <p class="popup-description">Sign up for my newsletter and receive an excellent short story called <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
             
             <!-- Mailchimp Signup Form -->
-            <form action="https://[YOURMAILCHIMPACCOUNT].list-manage.com/subscribe/post" method="POST" class="popup-form" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-                <input type="hidden" name="u" value="[YOURMAILCHIMPUSERID]">
-                <input type="hidden" name="id" value="[YOURMAILCHIMPLISTID]">
+                <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&amp;id=0fe855599d&amp;f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                <input type="hidden" name="u" value="Peter Foley">
+                <input type="hidden" name="id" value="0fe855599d">
                 <input type="email" name="EMAIL" placeholder="Your email address" required>
                 <button type="submit" name="subscribe">Send Me The Story!</button>
             </form>
