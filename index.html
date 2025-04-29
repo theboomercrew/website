@@ -3,127 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Book Series</title>
+    <title>Your Book Series Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Popup Styles */
-        .newsletter-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #1a1a1a;
-            padding: 2rem;
-            border: 2px solid #c41e3a;
-            z-index: 1000;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        :root {
+            --dark-bg: #1a1a1a;
+            --accent-red: #c41e3a;
+            --light-text: #e6e6e6;
         }
-        
-        .popup-overlay {
-            display: none;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Merriweather', serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        /* Navigation */
+        .navbar {
+            padding: 1rem 5%;
+            background-color: rgba(26, 26, 26, 0.95);
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 999;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .close-popup {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-        
-        #mailchimp-form {
+
+        .nav-links {
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            justify-content: space-between;
+            list-style: none;
         }
-        
-        #mailchimp-form input[type="email"] {
-            padding: 0.8rem;
-            font-size: 1rem;
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-family: 'Roboto Condensed', sans-serif;
         }
-        
-        #mailchimp-form button {
-            background: #c41e3a;
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('images/hero-bg.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .hero-text h1 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 2.5rem;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            background-color: var(--accent-red);
             color: white;
+            padding: 1rem 2rem;
             border: none;
-            padding: 1rem;
             cursor: pointer;
             font-size: 1.1rem;
+        }
+
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 4rem 5%;
+        }
+
+        .book-card {
+            background: #2a2a2a;
+            padding: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: #2a2a2a;
+            padding: 3rem 5%;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .newsletter input[type="email"] {
+            padding: 1rem;
+            width: 300px;
+            margin-right: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#books">Books</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#blog">Blog</a></li>
+        </ul>
+    </nav>
 
-    <!-- Your existing website content here -->
-
-    <!-- Newsletter Popup -->
-    <div class="popup-overlay" id="popupOverlay"></div>
-    
-    <div class="newsletter-popup" id="newsletterPopup">
-        <span class="close-popup" id="closePopup">&times;</span>
-        <h2>Get Your Free Short Story!</h2>
-        <p>Sign up to receive <em>"The World's Largest Trampoline"</em> instantly.</p>
-        
-        <!-- Mailchimp Signup Form -->
-        <form id="mailchimp-form" action="https://[YOUR-DOMAIN].list-manage.com/subscribe/post?u=[YOUR-USER-ID]&amp;id=[YOUR-LIST-ID]" method="post" target="_blank">
-            <input type="email" name="EMAIL" placeholder="Your email address" required>
-            <button type="submit">Send My Free Story</button>
-            
-            <!-- Mailchimp anti-bot fields (hidden) -->
-            <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input type="text" name="b_[YOUR-USER-ID]_[YOUR-LIST-ID]" tabindex="-1" value="">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Your Book Series Title</h1>
+                <p>A gripping tale of [insert theme or tagline]...</p>
+                <button class="cta-button">Start Reading Now</button>
             </div>
-        </form>
-        
-        <p class="privacy-notice">We respect your privacy. Unsubscribe at any time.</p>
-    </div>
+            <div class="hero-image">
+                <img src="images/series-cover.jpg" alt="Series Cover" class="book-cover">
+            </div>
+        </div>
+    </section>
 
-    <script>
-        // Show popup after 5 seconds or when user tries to leave
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(showPopup, 5000); // 5-second delay
-            
-            // Optional: Show when user tries to leave
-            window.addEventListener('mouseout', function(e) {
-                if (e.clientY < 0) {
-                    showPopup();
-                }
-            });
-            
-            // Close popup handlers
-            document.getElementById('closePopup').addEventListener('click', hidePopup);
-            document.getElementById('popupOverlay').addEventListener('click', hidePopup);
-            
-            // Check if user already subscribed (using localStorage)
-            if (localStorage.getItem('subscribed') === 'true') {
-                hidePopup();
-            }
-        });
-        
-        function showPopup() {
-            document.getElementById('popupOverlay').style.display = 'block';
-            document.getElementById('newsletterPopup').style.display = 'block';
-        }
-        
-        function hidePopup() {
-            document.getElementById('popupOverlay').style.display = 'none';
-            document.getElementById('newsletterPopup').style.display = 'none';
-        }
-        
-        // Mailchimp form success handler
-        document.getElementById('mailchimp-form').addEventListener('submit', function() {
-            localStorage.setItem('subscribed', 'true');
-            hidePopup();
-        });
-    </script>
+    <!-- Books Grid -->
+    <section class="books-grid">
+        <div class="book-card">
+            <img src="images/book1-cover.jpg" alt="Book 1" class="book-cover">
+            <h3>Book 1 Title</h3>
+            <p>A brief synopsis of Book 1...</p>
+            <button class="cta-button">Learn More</button>
+        </div>
+        <div class="book-card">
+            <img src="images/book2-cover.jpg" alt="Book 2" class="book-cover">
+            <h3>Book 2 Title</h3>
+            <p>A brief synopsis of Book 2...</p>
+            <button class="cta-button">Learn More</button>
+        </div>
+        <!-- Add more books -->
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2>Get Exclusive Content</h2>
+        <input type="email" placeholder="Enter your email">
+        <button class="cta-button">Subscribe</button>
+    </section>
+
+    <!-- Add About, Blog, Footer, etc. -->
+
 </body>
 </html>
