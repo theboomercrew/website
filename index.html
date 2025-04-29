@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boomer Crew Series by Peter Seddon</title>
     <style>
         :root {
@@ -20,41 +19,36 @@
 
         .header {
             background: var(--primary);
-            padding: 1.5rem;
+            padding: 2rem;
             text-align: center;
-            border-bottom: 3px solid var(--gold);
+            border-bottom: 5px solid var(--gold);
         }
 
         h1 {
             color: white;
-            font-size: 2rem;
+            font-size: 2.5rem;
             text-shadow: 2px 2px var(--accent);
             margin: 0;
-            line-height: 1.2;
         }
 
         .tagline {
             color: var(--gold);
             font-style: italic;
-            margin: 0.5rem 0 0;
         }
 
         .book-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            padding: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 2rem;
         }
 
         .book-card {
-            width: 80vw;
-            height: calc(80vw * 1.5);
-            max-width: 300px;
-            max-height: 450px;
-            margin: 0 auto;
             padding: 1rem;
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            min-height: 500px;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -80,31 +74,21 @@
             z-index: 2;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            margin: 0.5rem 0;
         }
 
         .synopsis {
             background: var(--primary);
             color: white;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
+            padding: 2rem;
+            margin: 2rem 0;
         }
 
         .author-section {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
+            gap: 2rem;
+            padding: 2rem;
             background: linear-gradient(to right, var(--cream));
-        }
-
-        .author-section img {
-            width: 150px;
-            height: 150px;
-            border: 5px solid var(--primary);
-            border-radius: 50%;
-            object-fit: cover;
         }
 
         .cta-button {
@@ -115,20 +99,10 @@
             border-radius: 5px;
             font-size: 1.1rem;
             cursor: pointer;
-            text-decoration: none;
-            display: block;
-            width: 90%;
-            max-width: 300px;
-            margin: 0 auto;
-            transition: transform 0.2s;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
         }
 
         .border-decoration {
-            height: 8px;
+            height: 10px;
             background: repeating-linear-gradient(
                 45deg,
                 var(--gold),
@@ -138,43 +112,71 @@
             );
         }
 
-        @media (min-width: 768px) {
-            .header {
-                padding: 2rem;
-            }
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-            h1 {
-                font-size: 2.5rem;
-            }
+        .popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
 
-            .book-grid {
-                grid-template-columns: repeat(3, 1fr);
-                padding: 2rem;
-                gap: 2rem;
-            }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
 
-            .book-card {
-                width: 100%;
-                height: 450px;
-                max-width: none;
-                max-height: none;
-            }
+        .popup-title {
+            color: var(--primary);
+            margin-top: 0;
+        }
 
-            .author-section {
-                flex-direction: row;
-                text-align: left;
-                padding: 2rem;
-            }
+        .popup-description {
+            margin-bottom: 1.5rem;
+        }
 
-            .author-section img {
-                width: 200px;
-                height: 200px;
-            }
+        .popup-form input[type="email"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
 
-            .synopsis {
-                padding: 2rem;
-                margin: 2rem 0;
-            }
+        .popup-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .popup-form button:hover {
+            background: #a51830;
         }
     </style>
 </head>
@@ -187,7 +189,7 @@
     </header>
 
     <div class="author-section">
-        <img src="Author image 1.jpg" alt="Peter Seddon">
+        <img src="Author image 2.jpg" alt="Peter Seddon" style="width:200px;border:5px solid var(--primary);">
         <div>
             <h2 style="color: var(--primary);">About the Author</h2>
             <p>Peter Seddon brings his signature wit to this hilarious crime caper series featuring Britain's most unlikely would-be criminals.</p>
@@ -224,10 +226,57 @@
         </ul>
     </div>
 
-    <div style="text-align: center; padding: 1.5rem;">
-        <a href="https://www.amazon.co.uk/dp/B0C7DMN77C" class="cta-button">GET THE SERIES NOW</a>
+    <div style="text-align: center; padding: 2rem;">
+        <button class="cta-button">GET THE SERIES NOW</button>
     </div>
 
     <div class="border-decoration"></div>
+
+    <!-- Popup HTML -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <span class="popup-close" id="close-popup">&times;</span>
+            <h2 class="popup-title">Get Your Free Short Story!</h2>
+            <p class="popup-description">Sign up for my newsletter and receive an excellent short story called <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
+            
+            <!-- Mailchimp Signup Form -->
+                <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&amp;id=0fe855599d&amp;f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                <input type="hidden" name="u" value="Peter Foley">
+                <input type="hidden" name="id" value="0fe855599d">
+                <input type="email" name="EMAIL" placeholder="Your email address" required>
+                <button type="submit" name="subscribe">Send Me The Story!</button>
+            </form>
+            
+            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
+        </div>
+    </div>
+
+    <script>
+        // Show popup when user scrolls halfway down the page
+        window.addEventListener('scroll', function() {
+            const popup = document.getElementById('popup');
+            const scrollPosition = window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const halfway = pageHeight / 2;
+            
+            // Check if user has scrolled past halfway and popup hasn't been shown yet
+            if (scrollPosition >= halfway && !localStorage.getItem('popupShown')) {
+                popup.style.display = 'flex';
+                localStorage.setItem('popupShown', 'true');
+            }
+        });
+
+        // Close popup when X is clicked
+        document.getElementById('close-popup').addEventListener('click', function() {
+            document.getElementById('popup').style.display = 'none';
+        });
+
+        // Close popup when clicking outside the content
+        document.getElementById('popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
