@@ -111,6 +111,73 @@
                 var(--primary) 20px
             );
         }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .popup-title {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .popup-description {
+            margin-bottom: 1.5rem;
+        }
+
+        .popup-form input[type="email"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .popup-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .popup-form button:hover {
+            background: #a51830;
+        }
     </style>
 </head>
 <body>
@@ -164,5 +231,52 @@
     </div>
 
     <div class="border-decoration"></div>
+
+    <!-- Popup HTML -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <span class="popup-close" id="close-popup">&times;</span>
+            <h2 class="popup-title">Get Your Free Short Story!</h2>
+            <p class="popup-description">Sign up for my newsletter and receive an excellent short story called <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
+            
+            <!-- Mailchimp Signup Form -->
+            <form action="https://[YOURMAILCHIMPACCOUNT].list-manage.com/subscribe/post" method="POST" class="popup-form" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+                <input type="hidden" name="u" value="[YOURMAILCHIMPUSERID]">
+                <input type="hidden" name="id" value="[YOURMAILCHIMPLISTID]">
+                <input type="email" name="EMAIL" placeholder="Your email address" required>
+                <button type="submit" name="subscribe">Send Me The Story!</button>
+            </form>
+            
+            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
+        </div>
+    </div>
+
+    <script>
+        // Show popup when user scrolls halfway down the page
+        window.addEventListener('scroll', function() {
+            const popup = document.getElementById('popup');
+            const scrollPosition = window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const halfway = pageHeight / 2;
+            
+            // Check if user has scrolled past halfway and popup hasn't been shown yet
+            if (scrollPosition >= halfway && !localStorage.getItem('popupShown')) {
+                popup.style.display = 'flex';
+                localStorage.setItem('popupShown', 'true');
+            }
+        });
+
+        // Close popup when X is clicked
+        document.getElementById('close-popup').addEventListener('click', function() {
+            document.getElementById('popup').style.display = 'none';
+        });
+
+        // Close popup when clicking outside the content
+        document.getElementById('popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
