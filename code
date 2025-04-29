@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boomer Crew Series by Peter Seddon</title>
     <style>
         :root {
@@ -15,18 +16,19 @@
             font-family: 'Verdana', sans-serif;
             margin: 0;
             background: var(--cream);
+            line-height: 1.5;
         }
 
         .header {
             background: var(--primary);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             border-bottom: 5px solid var(--gold);
         }
 
         h1 {
             color: white;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             text-shadow: 2px 2px var(--accent);
             margin: 0;
         }
@@ -34,13 +36,14 @@
         .tagline {
             color: var(--gold);
             font-style: italic;
+            font-size: clamp(0.9rem, 3vw, 1rem);
         }
 
         .book-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            padding: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
         }
 
         .book-card {
@@ -48,6 +51,7 @@
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-align: center;
+            height: 80vh;
             min-height: 500px;
             background-size: cover;
             background-position: center;
@@ -56,6 +60,22 @@
             justify-content: flex-end;
             position: relative;
             overflow: hidden;
+        }
+
+        .book-card a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .book-card {
+                height: 70vh;
+                min-height: 400px;
+            }
         }
 
         .book-card::after {
@@ -79,26 +99,87 @@
         .synopsis {
             background: var(--primary);
             color: white;
-            padding: 2rem;
-            margin: 2rem 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .author-section {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 2rem;
-            padding: 2rem;
+            gap: 1.5rem;
+            padding: 1.5rem;
             background: linear-gradient(to right, var(--cream));
+        }
+
+        @media (min-width: 768px) {
+            .author-section {
+                flex-direction: row;
+            }
+        }
+
+        .author-section img {
+            width: 200px;
+            height: 200px;
+            border: 5px solid var(--primary);
+            border-radius: 50%;
+            object-fit: cover;
+            max-width: 100%;
+        }
+
+        .email-signup {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            margin: 1.5rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .email-signup h2 {
+            margin-top: 0;
+            color: var(--gold);
+        }
+
+        .email-signup form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .email-signup input[type="email"] {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .email-signup button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
         }
 
         .cta-button {
             background: var(--accent);
             color: white;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             border: none;
             border-radius: 5px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
+            display: inline-block;
+            margin: 0.5rem 0;
+            text-decoration: none;
         }
 
         .border-decoration {
@@ -111,39 +192,137 @@
                 var(--primary) 20px
             );
         }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .popup-title {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+        }
+
+        .popup-description {
+            margin-bottom: 1.2rem;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .popup-form input[type="email"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .popup-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .popup-form button:hover {
+            background: #a51830;
+        }
     </style>
 </head>
 <body>
     <div class="border-decoration"></div>
-   
+    
     <header class="header">
         <h1>THE BOOMER CREW SERIES</h1>
-        <p class="tagline">Last of the Summer Wine meets Ocean's Eleven</p>
+        <p class="tagline">Cheeky Chappies From The North</p>
     </header>
 
     <div class="author-section">
-        <img src="Author image 2.jpg" alt="Peter Seddon" style="width:200px;border:5px solid var(--primary);">
+        <img src="Author image 2.jpg" alt="Peter Seddon">
         <div>
             <h2 style="color: var(--primary);">About the Author</h2>
             <p>Peter Seddon brings his signature wit to this hilarious crime caper series featuring Britain's most unlikely would-be criminals.</p>
         </div>
     </div>
 
+    <div class="email-signup">
+        <h2>Get Updates on New Releases</h2>
+        <p>Sign up for my newsletter to stay informed about new books and recieve a FREE short Story - The World's Biggest Trampoline!</p>
+        <form action="https://[YOURMAILCHIMPACCOUNT].list-manage.com/subscribe/post" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+            <input type="hidden" name="u" value="[YOURMAILCHIMPUSERID]">
+            <input type="hidden" name="id" value="[YOURMAILCHIMPLISTID]">
+            <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Your email address">
+            <button type="submit" name="subscribe">Subscribe</button>
+        </form>
+    </div>
+
     <div class="book-grid">
         <div class="book-card" style="background-image: url('Book 1 book cover.jpg')">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Boomer Crew"></a>
             <h3>THE BOOMER CREW</h3>
             <p>Where it all begins...<br>
             "A bank heist gone wonderfully wrong"</p>
         </div>
         <div class="book-card" style="background-image: url('Book 2 book cover.jpg')">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Joke That Killed"></a>
             <h3>THE JOKE THAT KILLED</h3>
             <p>The Crew returns!<br>
             "Double trouble and twice the laughs"</p>
         </div>
         <div class="book-card" style="background-image: url('Book 3 book cover.jpg')">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase Double Up or Quit"></a>
             <h3>DOUBLE UP OR QUIT</h3>
             <p>Their biggest gamble yet<br>
             "A Monaco rollercoaster ride!"</p>
+        </div>
+             <div class="book-card" style="background-image: url('Book 4 book cover.jpg')">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Book 4 Coming Soon!"></a>
+            <h3>Coming Soon!</h3>
+            <p>Book 4 is on the way!<br>
+            Coming spring 2026</p>
         </div>
     </div>
 
@@ -159,10 +338,71 @@
         </ul>
     </div>
 
-    <div style="text-align: center; padding: 2rem;">
-        <button class="cta-button">GET THE SERIES NOW</button>
+    <div style="text-align: center; padding: 1.5rem;">
+        <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" class="cta-button">GET THE SERIES NOW</a>
     </div>
 
     <div class="border-decoration"></div>
+
+    <!-- Popup HTML -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <button class="popup-close" id="close-popup" aria-label="Close popup">&times;</button>
+            <h2 class="popup-title">Get Your Free Short Story!</h2>
+            <p class="popup-description">Sign up for my newsletter and receive an excellent short story called <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
+            
+            <!-- Mailchimp Signup Form -->
+                <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&amp;id=0fe855599d&amp;f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                <input type="hidden" name="u" value="Peter Foley">
+                <input type="hidden" name="id" value="0fe855599d">
+                <input type="email" name="EMAIL" placeholder="Your email address" required>
+                <button type="submit" name="subscribe">Send Me The Story!</button>
+            </form>
+            
+            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
+        </div>
+    </div>
+
+    <script>
+        // Track if popup has been shown during this session
+        let popupShownThisSession = false;
+
+        // Show popup when user scrolls halfway down the page
+        window.addEventListener('scroll', function() {
+            const popup = document.getElementById('popup');
+            const scrollPosition = window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const halfway = pageHeight / 2;
+            
+            // Check if user has scrolled past halfway and popup hasn't been shown yet this session
+            if (scrollPosition >= halfway && !popupShownThisSession) {
+                popup.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                popupShownThisSession = true;
+            }
+        });
+
+        // Close popup when X is clicked
+        document.getElementById('close-popup').addEventListener('click', function() {
+            document.getElementById('popup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close popup when clicking outside the content
+        document.getElementById('popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('popup').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
 </body>
 </html>
