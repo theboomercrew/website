@@ -3,178 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Book Series</title>
+    <title>The Boomer Crew Series by Peter Seddon</title>
     <style>
-        /* Popup Styles */
-        .newsletter-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #1a1a1a;
-            padding: 2.5rem;
-            border: 2px solid #c41e3a;
-            z-index: 1000;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            color: white; /* All text white */
+        :root {
+            --primary: #2A4B7C;
+            --accent: #C41E3A;
+            --gold: #D4AF37;
+            --cream: #fad15e;
+        }
+
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            background: var(--cream);
+        }
+
+        .header {
+            background: var(--primary);
+            padding: 1.5rem;
             text-align: center;
+            border-bottom: 3px solid var(--gold);
         }
-        
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 999;
-        }
-        
-        .close-popup {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            cursor: pointer;
-            font-size: 1.8rem;
+
+        h1 {
             color: white;
-            font-weight: bold;
+            font-size: 2rem;
+            text-shadow: 2px 2px var(--accent);
+            margin: 0;
+            line-height: 1.2;
         }
-        
-        #mailchimp-form {
+
+        .tagline {
+            color: var(--gold);
+            font-style: italic;
+            margin: 0.5rem 0 0;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .book-card {
+            width: 80vw;
+            height: calc(80vw * 1.5);
+            max-width: 300px;
+            max-height: 450px;
+            margin: 0 auto;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
         }
-        
-        #mailchimp-form input[type="email"] {
-            padding: 1rem;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 3px;
+
+        .book-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 60%);
+            z-index: 1;
         }
-        
-        #mailchimp-form button {
-            background: #c41e3a;
+
+        .book-card * {
+            position: relative;
+            z-index: 2;
             color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin: 0.5rem 0;
+        }
+
+        .synopsis {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .author-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(to right, var(--cream));
+        }
+
+        .author-section img {
+            width: 150px;
+            height: 150px;
+            border: 5px solid var(--primary);
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
             border: none;
-            padding: 1.2rem;
+            border-radius: 5px;
+            font-size: 1.1rem;
             cursor: pointer;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 3px;
-            transition: background 0.3s;
+            text-decoration: none;
+            display: block;
+            width: 90%;
+            max-width: 300px;
+            margin: 0 auto;
+            transition: transform 0.2s;
         }
-        
-        #mailchimp-form button:hover {
-            background: #e82a4a;
+
+        .cta-button:hover {
+            transform: scale(1.05);
         }
-        
-        /* Text Sizes */
-        .newsletter-popup h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+
+        .border-decoration {
+            height: 8px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--gold),
+                var(--gold) 10px,
+                var(--primary) 10px,
+                var(--primary) 20px
+            );
         }
-        
-        .newsletter-popup p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
-        
-        .privacy-notice {
-            font-size: 0.9rem;
-            margin-top: 1.5rem;
-            opacity: 0.8;
-        }
-        
-        @media (max-width: 600px) {
-            .newsletter-popup {
-                padding: 1.8rem;
+
+        @media (min-width: 768px) {
+            .header {
+                padding: 2rem;
             }
-            
-            .newsletter-popup h2 {
-                font-size: 1.7rem;
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .book-grid {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 2rem;
+                gap: 2rem;
+            }
+
+            .book-card {
+                width: 100%;
+                height: 450px;
+                max-width: none;
+                max-height: none;
+            }
+
+            .author-section {
+                flex-direction: row;
+                text-align: left;
+                padding: 2rem;
+            }
+
+            .author-section img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .synopsis {
+                padding: 2rem;
+                margin: 2rem 0;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- Your website content here -->
-
-    <!-- Newsletter Popup -->
-    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="border-decoration"></div>
     
-    <div class="newsletter-popup" id="newsletterPopup">
-        <span class="close-popup" id="closePopup">&times;</span>
-        <h2>Claim Your Free Short Story!</h2>
-        <p>Join my newsletter and receive <em>"The World's Largest Trampoline"</em> instantly.</p>
-        
-        <!-- Mailchimp Signup Form -->
-        <form id="mailchimp-form" action="https://[YOUR-DOMAIN].list-manage.com/subscribe/post?u=[YOUR-USER-ID]&amp;id=[YOUR-LIST-ID]" method="post" target="_blank" novalidate>
-            <input type="email" name="EMAIL" placeholder="Your email address" required>
-            <button type="submit">Send My Free Story →</button>
-            
-            <!-- Mailchimp anti-bot fields (hidden) -->
-            <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input type="text" name="b_[YOUR-USER-ID]_[YOUR-LIST-ID]" tabindex="-1" value="">
-            </div>
-        </form>
-        
-        <p class="privacy-notice">We'll never share your email. Unsubscribe anytime.</p>
+    <header class="header">
+        <h1>THE BOOMER CREW SERIES</h1>
+        <p class="tagline">Last of the Summer Wine meets Ocean's Eleven</p>
+    </header>
+
+    <div class="author-section">
+        <img src="Author image 1.jpg" alt="Peter Seddon">
+        <div>
+            <h2 style="color: var(--primary);">About the Author</h2>
+            <p>Peter Seddon brings his signature wit to this hilarious crime caper series featuring Britain's most unlikely would-be criminals.</p>
+        </div>
     </div>
 
-    <script>
-        // Show popup after 5 seconds
-        document.addEventListener('DOMContentLoaded', function() {
-            // Only show if not previously subscribed
-            if (localStorage.getItem('subscribed') !== 'true') {
-                setTimeout(showPopup, 5000); // 5-second delay
-            }
-            
-            // Optional exit-intent detection
-            window.addEventListener('mouseout', function(e) {
-                if (e.clientY < 50 && localStorage.getItem('subscribed') !== 'true') {
-                    showPopup();
-                }
-            });
-            
-            // Close handlers
-            document.getElementById('closePopup').addEventListener('click', hidePopup);
-            document.getElementById('popupOverlay').addEventListener('click', hidePopup);
-        });
-        
-        function showPopup() {
-            document.getElementById('popupOverlay').style.display = 'block';
-            document.getElementById('newsletterPopup').style.display = 'block';
-            
-            // Prevent immediate re-showing if user closes
-            setTimeout(function() {
-                window.addEventListener('mouseout', exitIntentHandler);
-            }, 1000);
-        }
-        
-        function hidePopup() {
-            document.getElementById('popupOverlay').style.display = 'none';
-            document.getElementById('newsletterPopup').style.display = 'none';
-        }
-        
-        function exitIntentHandler(e) {
-            if (e.clientY < 50) {
-                showPopup();
-                window.removeEventListener('mouseout', exitIntentHandler);
-            }
-        }
-        
-        // Mailchimp form success handler
-        document.getElementById('mailchimp-form').addEventListener('submit', function() {
-            localStorage.setItem('subscribed', 'true');
-            hidePopup();
-        });
-    </script>
+    <div class="book-grid">
+        <div class="book-card" style="background-image: url('Book 1 book cover.jpg')">
+            <h3>THE BOOMER CREW</h3>
+            <p>Where it all begins...<br>
+            "A bank heist gone wonderfully wrong"</p>
+        </div>
+        <div class="book-card" style="background-image: url('Book 2 book cover.jpg')">
+            <h3>THE JOKE THAT KILLED</h3>
+            <p>The Crew returns!<br>
+            "Double trouble and twice the laughs"</p>
+        </div>
+        <div class="book-card" style="background-image: url('Book 3 book cover.jpg')">
+            <h3>DOUBLE UP OR QUIT</h3>
+            <p>Their biggest gamble yet<br>
+            "A Monaco rollercoaster ride!"</p>
+        </div>
+    </div>
+
+    <div class="synopsis">
+        <h2>The Hilarious Crime Spree That Captivated Britain</h2>
+        <p>When three pensioners accidentally become crime-stoppers, they find themselves indebted to a local mob boss. Follow Blakey, Finley, and Geoff through a series of misadventures involving:</p>
+        <ul>
+            <li>Failed bank heists</li>
+            <li>Faked deaths</li>
+            <li>Prison swaps</li>
+            <li>Football scandals</li>
+            <li>Monaco mayhem</li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; padding: 1.5rem;">
+        <a href="https://www.amazon.co.uk/dp/B0C7DMN77C" class="cta-button">GET THE SERIES NOW</a>
+    </div>
+
+    <div class="border-decoration"></div>
 </body>
 </html>
