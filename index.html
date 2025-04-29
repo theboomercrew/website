@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boomer Crew Series by Peter Seddon</title>
     <style>
         :root {
@@ -15,18 +16,19 @@
             font-family: 'Verdana', sans-serif;
             margin: 0;
             background: var(--cream);
+            line-height: 1.5;
         }
 
         .header {
             background: var(--primary);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             border-bottom: 5px solid var(--gold);
         }
 
         h1 {
             color: white;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             text-shadow: 2px 2px var(--accent);
             margin: 0;
         }
@@ -34,13 +36,14 @@
         .tagline {
             color: var(--gold);
             font-style: italic;
+            font-size: clamp(0.9rem, 3vw, 1rem);
         }
 
         .book-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            padding: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
         }
 
         .book-card {
@@ -48,7 +51,7 @@
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-align: center;
-            min-height: 500px;
+            min-height: 400px;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -56,6 +59,12 @@
             justify-content: flex-end;
             position: relative;
             overflow: hidden;
+        }
+
+        @media (max-width: 600px) {
+            .book-card {
+                min-height: 350px;
+            }
         }
 
         .book-card::after {
@@ -79,26 +88,42 @@
         .synopsis {
             background: var(--primary);
             color: white;
-            padding: 2rem;
-            margin: 2rem 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .author-section {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 2rem;
-            padding: 2rem;
+            gap: 1.5rem;
+            padding: 1.5rem;
             background: linear-gradient(to right, var(--cream));
+        }
+
+        @media (min-width: 768px) {
+            .author-section {
+                flex-direction: row;
+            }
+        }
+
+        .author-section img {
+            width: 150px;
+            border: 5px solid var(--primary);
+            max-width: 100%;
+            height: auto;
         }
 
         .cta-button {
             background: var(--accent);
             color: white;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             border: none;
             border-radius: 5px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
+            display: inline-block;
+            margin: 0.5rem 0;
         }
 
         .border-decoration {
@@ -124,17 +149,21 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 1rem;
+            box-sizing: border-box;
         }
 
         .popup-content {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 10px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             text-align: center;
             position: relative;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .popup-close {
@@ -144,15 +173,20 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0;
         }
 
         .popup-title {
             color: var(--primary);
             margin-top: 0;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
         }
 
         .popup-description {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
+            font-size: clamp(0.9rem, 3vw, 1rem);
         }
 
         .popup-form input[type="email"] {
@@ -162,21 +196,41 @@
             border: 2px solid #ddd;
             border-radius: 5px;
             font-size: 1rem;
+            box-sizing: border-box;
         }
 
         .popup-form button {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 0.8rem 2rem;
+            padding: 0.8rem;
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .popup-form button:hover {
             background: #a51830;
+        }
+
+        /* Mobile menu button (hidden by default) */
+        .mobile-menu-btn {
+            display: none;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem auto;
+        }
+
+        @media (max-width: 600px) {
+            .mobile-menu-btn {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -189,7 +243,7 @@
     </header>
 
     <div class="author-section">
-        <img src="Author image 2.jpg" alt="Peter Seddon" style="width:200px;border:5px solid var(--primary);">
+        <img src="Author image 2.jpg" alt="Peter Seddon">
         <div>
             <h2 style="color: var(--primary);">About the Author</h2>
             <p>Peter Seddon brings his signature wit to this hilarious crime caper series featuring Britain's most unlikely would-be criminals.</p>
@@ -226,7 +280,7 @@
         </ul>
     </div>
 
-    <div style="text-align: center; padding: 2rem;">
+    <div style="text-align: center; padding: 1.5rem;">
         <button class="cta-button">GET THE SERIES NOW</button>
     </div>
 
@@ -235,11 +289,11 @@
     <!-- Popup HTML -->
     <div class="popup-overlay" id="popup">
         <div class="popup-content">
-            <span class="popup-close" id="close-popup">&times;</span>
+            <button class="popup-close" id="close-popup" aria-label="Close popup">&times;</button>
             <h2 class="popup-title">Get Your Free Short Story!</h2>
             <p class="popup-description">Sign up for my newsletter and receive an excellent short story called <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
             
-            <!-- Mailchimp Signup Form -->
+ <!-- Mailchimp Signup Form -->
                 <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&amp;id=0fe855599d&amp;f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
                 <input type="hidden" name="u" value="Peter Foley">
                 <input type="hidden" name="id" value="0fe855599d">
@@ -262,6 +316,7 @@
             // Check if user has scrolled past halfway and popup hasn't been shown yet
             if (scrollPosition >= halfway && !localStorage.getItem('popupShown')) {
                 popup.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when popup is open
                 localStorage.setItem('popupShown', 'true');
             }
         });
@@ -269,14 +324,26 @@
         // Close popup when X is clicked
         document.getElementById('close-popup').addEventListener('click', function() {
             document.getElementById('popup').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
         });
 
         // Close popup when clicking outside the content
         document.getElementById('popup').addEventListener('click', function(e) {
             if (e.target === this) {
                 this.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            }
+        });
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('popup').style.display = 'none';
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
             }
         });
     </script>
 </body>
 </html>
+            
+ 
