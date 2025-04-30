@@ -1,1 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Boomer Crew Series by Peter Seddon</title>
+    <!-- Include Amatic SC as a fallback via Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Load Spring Day font (assuming you have the font files) */
+        @font-face {
+            font-family: 'Spring Day';
+            src: url('SpringDay-Regular.woff2') format('woff2'),
+                 url('SpringDay-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
 
+        :root {
+            --primary: #2A4B7C;
+            --accent: #C41E3A;
+            --gold: #D4AF37;
+            --cream: #fad15e;
+        }
+
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            background: var(--cream);
+            line-height: 1.5;
+        }
+
+        .header {
+            background: var(--primary);
+            padding: 1rem; /* Reduced padding for mobile */
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        h1 {
+            color: white;
+            font-size: clamp(1.5rem, 5vw, 2.5rem); /* Slightly smaller min for mobile */
+            text-shadow: 2px 2px var(--accent);
+            margin: 0;
+        }
+
+        .tagline {
+            color: var(--gold);
+            font-style: italic;
+            font-size: clamp(0.8rem, 3vw, 1rem); /* Slightly smaller min for mobile */
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly smaller min width */
+            gap: 1rem; /* Reduced gap for mobile */
+            padding: 1rem;
+            justify-items: center;
+        }
+
+        .book-card {
+            padding: 0.5rem; /* Reduced padding for mobile */
+            border-radius: 5px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: visible;
+            width: fit-content;
+            max-width: 100%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-cover {
+            display: block;
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 2 / 3;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 5px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            z-index: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-card:hover .book-cover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .book-card a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            z-index: 2;
+        }
+
+        @media (max-width: 600px) {
+            .book-cover {
+                max-width: 280px; /* Further reduced for smaller screens */
+            }
+            .book-card h3 {
+                font-size: clamp(1.2rem, 3.5vw, 1.8rem); /* Smaller font size on mobile */
+            }
+            .book-card p {
+                font-size: clamp(0.8rem, 2.5vw, 1rem); /* Smaller description text */
+            }
+        }
+
+        @media (max-width: 400px) {
+            .book-cover {
+                max-width: 250px; /* Even smaller for very small screens */
+            }
+        }
+
+        .book-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 60%);
+            z-index: 1;
+        }
+
+        .book-card * {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+        }
+
+        .book-card h3 {
+            font-family: 'Spring Day', 'Amatic SC', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin: 0.5rem 0;
+        }
+
+        .synopsis {
+            background: var(--primary);
+            color: white;
+            padding: 1rem; /* Reduced padding for mobile */
+            margin: 1rem 0;
+        }
+
+        .author-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(to right, var(--cream));
+        }
+
+        @media (min-width: 768px) {
+            .author-section {
+                flex-direction: row;
+            }
+        }
+
+        .author-section img {
+            width: 150px; /* Smaller for mobile */
+            height: 150px;
+            border: 5px solid var(--primary);
+            border-radius: 50%;
+            object-fit: cover;
+            max-width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .author-section img {
+                width: 200px; /* Larger for desktop */
+                height: 200px;
+            }
+        }
+
+        .email-signup {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .email-signup h2 {
+            margin-top: 0;
+            color: var(--gold);
+            font-size: clamp(1.2rem, 4vw, 1.5rem); /* Smaller for mobile */
+        }
+
+        .email-signup form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .email-signup input[type="email"] {
+            padding: 0.6rem; /* Slightly smaller padding */
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .email-signup button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 0.6rem 1.2rem; /* Slightly smaller for mobile */
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-block;
+            margin: 0.5rem 0;
+            text-decoration: none;
+        }
+
+        .border-decoration {
+            height: 8px; /* Slightly thinner for mobile */
+            background: repeating-linear-gradient(
+                45deg,
+                var(--gold),
+                var(--gold) 10px,
+                var(--primary) 10px,
+                var(--primary) 20px
+            );
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 0.5rem; /* Reduced padding for mobile */
+            box-sizing: border-box;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 90%; /* More flexible for mobile */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-height: 85vh; /* Slightly smaller for mobile */
+            overflow-y: auto;
+        }
+
+        @media (max-width: 600px) {
+            .popup-content {
+                padding: 0.8rem;
+                max-width: 95%; /* Even more flexible */
+                max-height: 80vh;
+            }
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .popup-title {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: clamp(1.1rem, 4vw, 1.8rem);
+        }
+
+        .popup-description {
+            margin-bottom: 1rem;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+        }
+
+        .popup-form input[type="email"] {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+
+        .popup-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .popup-form button:hover {
+            background: #a51830;
+        }
+
+        .reader-magnet-img {
+            max-width: 120px; /* Smaller for mobile */
+            margin: 0 auto 0.8rem;
+            border: 3px solid var(--gold);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @media (min-width: 600px) {
+            .reader-magnet-img {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="border-decoration"></div>
+    
+    <header class="header">
+        <h1>THE BOOMER CREW</h1>
+        <p class="tagline">Cheeky Chappies From The North</p>
+    </header>
+
+    <div class="author-section">
+        <img src="Author image 2.jpg" alt="Peter Seddon">
+        <div>
+            <h2 style="color: var(--primary); text-align: center;">About the Author</h2>
+            <p>Peter Seddon is a British storyteller renowned for his witty, heartfelt tales that weave humor, nostalgia, and the quirks of everyday life into captivating narratives. With The Boomer Crew series, Seddon shines as a master of character-driven adventures, bringing the irrepressible spirit of his lovable, mischievous retirees to life with charm and authenticity. A self-published gem, his sharp dialogue and knack for blending comedy with poignant moments mark him as a standout voice in contemporary fiction.</p>
+        </div>
+    </div>
+
+    <div class="email-signup">
+        <h2>Get Updates on New Releases</h2>
+        <p>Sign up for my newsletter to stay informed about new books and receive a FREE short Story - The World's Biggest Trampoline!</p>
+        <form action="https://[YOURMAILCHIMPACCOUNT].list-manage.com/subscribe/post" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+            <input type="hidden" name="u" value="[YOURMAILCHIMPUSERID]">
+            <input type="hidden" name="id" value="[YOURMAILCHIMPLISTID]">
+            <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Your email address">
+            <button type="submit" name="subscribe">Subscribe</button>
+        </form>
+    </div>
+
+    <div class="book-grid">
+        <div class="book-card">
+            <img src="Book 1 book cover.jpg" alt="The Boomer Crew Book Cover" class="book-cover">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Boomer Crew"></a>
+            <h3>THE BOOMER CREW</h3>
+            <p>Where it all begins...<br>
+            "A bank heist gone wonderfully wrong"</p>
+        </div>
+        <div class="book-card">
+            <img src="Book 2 book cover.jpg" alt="The Joke That Killed Book Cover" class="book-cover">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Joke That Killed"></a>
+            <h3>THE JOKE THAT KILLED</h3>
+            <p>The Crew returns!<br>
+            "Double trouble and twice the laughs"</p>
+        </div>
+        <div class="book-card">
+            <img src="Book 3 book cover.jpg" alt="Double Up or Quit Book Cover" class="book-cover">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase Double Up or Quit"></a>
+            <h3>DOUBLE UP OR QUIT</h3>
+            <p>Their biggest gamble yet<br>
+            "A Monaco rollercoaster ride!"</p>
+        </div>
+        <div class="book-card">
+            <img src="Book 4 book cover.jpg" alt="Book 4 Coming Soon Book Cover" class="book-cover">
+            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Book 4 Coming Soon!"></a>
+            <h3>Coming Soon!</h3>
+            <p>Book 4 is on the way!<br>
+            Coming spring 2026</p>
+        </div>
+    </div>
+
+    <div class="synopsis">
+        <h2>The Hilarious Crime Spree That's Captivating Britain</h2>
+        <p>When three pensioners accidentally become crime-stoppers, they find themselves indebted to a local mob boss. Follow Blakey, Finley, and Geoff through a series of misadventures involving:</p>
+        <ul>
+            <li>Failed bank heists</li>
+            <li>Faked deaths</li>
+            <li>Prison swaps</li>
+            <li>Football scandals</li>
+            <li>Monaco mayhem</li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; padding: 1rem;">
+        <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" class="cta-button">GET THE SERIES NOW</a>
+    </div>
+
+    <div class="border-decoration"></div>
+
+    <!-- Popup HTML -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <button class="popup-close" id="close-popup" aria-label="Close popup">×</button>
+            <h2 class="popup-title">Get Your Free Short Story!</h2>
+            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Biggest Trampoline" class="reader-magnet-img">
+            <p class="popup-description">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
+            
+            <!-- Mailchimp Signup Form -->
+            <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&id=0fe855599d&f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                <input type="hidden" name="u" value="Peter Foley">
+                <input type="hidden" name="id" value="0fe855599d">
+                <input type="email" name="EMAIL" placeholder="Your email address" required>
+                <button type="submit" name="subscribe">Send Me The Story!</button>
+            </form>
+            
+            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track if popup has been shown during this session
+            let popupShownThisSession = false;
+            const popup = document.getElementById('popup');
+
+            if (!popup) {
+                console.error('Popup element not found!');
+                return;
+            }
+
+            // Show popup when user scrolls halfway down the page
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const halfway = pageHeight / 2;
+
+                console.log('Scroll position:', scrollPosition, 'Halfway:', halfway); // Debugging
+
+                if (scrollPosition >= halfway && !popupShownThisSession) {
+                    popup.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    popupShownThisSession = true;
+                }
+            });
+
+            // Close popup when X is clicked
+            document.getElementById('close-popup').addEventListener('click', function() {
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close popup when clicking outside the content
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Close popup with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    popup.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
