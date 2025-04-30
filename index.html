@@ -44,30 +44,35 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             padding: 1.5rem;
+            justify-items: center; /* Center the cards in their grid cells */
         }
 
         .book-card {
             padding: 1rem;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-align: center;
-            aspect-ratio: 2 / 3; /* Matches the book cover's aspect ratio */
-            height: auto;
-            min-height: 450px;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             position: relative;
             overflow: visible;
+            width: fit-content; /* Shrink container to image width */
+            max-width: 100%; /* Prevent overflow on small screens */
+            margin: 0 auto; /* Center the card in the grid cell */
         }
 
         .book-cover {
-            object-fit: conatin; /* Fills container, may crop slightly */
+            display: block;
+            width: 100%;
+            max-width: 300px; /* Adjust based on desired image size */
+            aspect-ratio: 2 / 3; /* Matches the book cover's 2:3 aspect ratio */
+            object-fit: contain; /* Ensures the entire image is visible */
+            object-position: center;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow applied to the image */
+            z-index: 0; /* Place behind text and overlay */
         }
-        
+
         .book-card a {
             position: absolute;
             top: 0;
@@ -75,11 +80,12 @@
             width: 100%;
             height: 100%;
             text-decoration: none;
+            z-index: 2; /* Ensure link is clickable above image */
         }
 
         @media (max-width: 600px) {
-            .book-card {
-            min-height: 350px;
+            .book-cover {
+                max-width: 250px; /* Slightly smaller on mobile */
             }
         }
 
@@ -91,7 +97,7 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 60%);
-            z-index: 1;
+            z-index: 1; /* Overlay above image but below text */
         }
 
         .book-card * {
@@ -276,7 +282,7 @@
             background: #a51830;
         }
 
-          .reader-magnet-img {
+        .reader-magnet-img {
             max-width: 150px;
             margin: 0 auto 1rem;
             border: 3px solid var(--gold);
@@ -297,15 +303,13 @@
         <img src="Author image 2.jpg" alt="Peter Seddon">
         <div>
             <h2 style="color: var(--primary); text-align: center;">About the Author</h2>
-            <p>Peter Seddon is a British storyteller renowned for his witty, heartfelt tales that weave humor, nostalgia, and the quirks of everyday life into captivating narratives. With The Boomer Crew series, Seddon shines as a master of character-driven adventures, bringing the irrepressible spirit of his lovable, mischievous retirees to life with charm and authenticity. A self-published gem, his sharp dialogue and knack for blending comedy with poignant moments mark him as a standout voice in contemporary fiction.
-
-</p>
+            <p>Peter Seddon is a British storyteller renowned for his witty, heartfelt tales that weave humor, nostalgia, and the quirks of everyday life into captivating narratives. With The Boomer Crew series, Seddon shines as a master of character-driven adventures, bringing the irrepressible spirit of his lovable, mischievous retirees to life with charm and authenticity. A self-published gem, his sharp dialogue and knack for blending comedy with poignant moments mark him as a standout voice in contemporary fiction.</p>
         </div>
     </div>
 
     <div class="email-signup">
         <h2>Get Updates on New Releases</h2>
-        <p>Sign up for my newsletter to stay informed about new books and recieve a FREE short Story - The World's Biggest Trampoline!</p>
+        <p>Sign up for my newsletter to stay informed about new books and receive a FREE short Story - The World's Biggest Trampoline!</p>
         <form action="https://[YOURMAILCHIMPACCOUNT].list-manage.com/subscribe/post" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
             <input type="hidden" name="u" value="[YOURMAILCHIMPUSERID]">
             <input type="hidden" name="id" value="[YOURMAILCHIMPLISTID]">
@@ -315,25 +319,29 @@
     </div>
 
     <div class="book-grid">
-        <div class="book-card" style="background-image: url('Book 1 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 1 book cover.jpg" alt="The Boomer Crew Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Boomer Crew"></a>
             <h3>THE BOOMER CREW</h3>
             <p>Where it all begins...<br>
             "A bank heist gone wonderfully wrong"</p>
         </div>
-        <div class="book-card" style="background-image: url('Book 2 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 2 book cover.jpg" alt="The Joke That Killed Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Joke That Killed"></a>
             <h3>THE JOKE THAT KILLED</h3>
             <p>The Crew returns!<br>
             "Double trouble and twice the laughs"</p>
         </div>
-        <div class="book-card" style="background-image: url('Book 3 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 3 book cover.jpg" alt="Double Up or Quit Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase Double Up or Quit"></a>
             <h3>DOUBLE UP OR QUIT</h3>
             <p>Their biggest gamble yet<br>
             "A Monaco rollercoaster ride!"</p>
         </div>
-             <div class="book-card" style="background-image: url('Book 4 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 4 book cover.jpg" alt="Book 4 Coming Soon Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Book 4 Coming Soon!"></a>
             <h3>Coming Soon!</h3>
             <p>Book 4 is on the way!<br>
@@ -354,71 +362,4 @@
     </div>
 
     <div style="text-align: center; padding: 1.5rem;">
-        <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" class="cta-button">GET THE SERIES NOW</a>
-    </div>
-
-    <div class="border-decoration"></div>
-
-    <!-- Popup HTML -->
-    <div class="popup-overlay" id="popup">
-        <div class="popup-content">
-            <button class="popup-close" id="close-popup" aria-label="Close popup">&times;</button>
-            <h2 class="popup-title">Get Your Free Short Story!</h2>
-            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Biggest Trampoline" class="reader-magnet-img">
-            <p class="popup-description">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
-            
-            <!-- Mailchimp Signup Form -->
-                <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&amp;id=0fe855599d&amp;f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-                <input type="hidden" name="u" value="Peter Foley">
-                <input type="hidden" name="id" value="0fe855599d">
-                <input type="email" name="EMAIL" placeholder="Your email address" required>
-                <button type="submit" name="subscribe">Send Me The Story!</button>
-            </form>
-            
-            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
-        </div>
-    </div>
-
-    <script>
-        // Track if popup has been shown during this session
-        let popupShownThisSession = false;
-
-        // Show popup when user scrolls halfway down the page
-        window.addEventListener('scroll', function() {
-            const popup = document.getElementById('popup');
-            const scrollPosition = window.scrollY;
-            const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const halfway = pageHeight / 2;
-            
-            // Check if user has scrolled past halfway and popup hasn't been shown yet this session
-            if (scrollPosition >= halfway && !popupShownThisSession) {
-                popup.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-                popupShownThisSession = true;
-            }
-        });
-
-        // Close popup when X is clicked
-        document.getElementById('close-popup').addEventListener('click', function() {
-            document.getElementById('popup').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-
-        // Close popup when clicking outside the content
-        document.getElementById('popup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Close popup with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.getElementById('popup').style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
-    </script>
-</body>
-</html>
+        <a href="https://www.amazon.co.uk/dp/B0D384G3
