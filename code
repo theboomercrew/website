@@ -59,7 +59,7 @@
             flex-direction: column;
             justify-content: flex-end;
             position: relative;
-            overflow: visable;
+            overflow: visible;
         }
 
         .book-card a {
