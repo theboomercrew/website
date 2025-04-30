@@ -59,7 +59,7 @@
             flex-direction: column;
             justify-content: flex-end;
             position: relative;
-            overflow: hidden;
+            overflow: visable;
         }
 
         .book-card a {
@@ -270,21 +270,31 @@
         .popup-form button:hover {
             background: #a51830;
         }
+
+          .reader-magnet-img {
+            max-width: 150px;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--gold);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
     <div class="border-decoration"></div>
     
     <header class="header">
-        <h1>THE BOOMER CREW SERIES</h1>
+        <h1>THE BOOMER CREW</h1>
         <p class="tagline">Cheeky Chappies From The North</p>
     </header>
 
     <div class="author-section">
         <img src="Author image 2.jpg" alt="Peter Seddon">
         <div>
-            <h2 style="color: var(--primary);">About the Author</h2>
-            <p>Peter Seddon brings his signature wit to this hilarious crime caper series featuring Britain's most unlikely would-be criminals.</p>
+            <h2 style="color: var(--primary); text-align: center;">About the Author</h2>
+            <p>Peter Seddon is a British storyteller renowned for his witty, heartfelt tales that weave humor, nostalgia, and the quirks of everyday life into captivating narratives. With The Boomer Crew series, Seddon shines as a master of character-driven adventures, bringing the irrepressible spirit of his lovable, mischievous retirees to life with charm and authenticity. A self-published gem, his sharp dialogue and knack for blending comedy with poignant moments mark him as a standout voice in contemporary fiction.
+
+</p>
         </div>
     </div>
 
@@ -327,7 +337,7 @@
     </div>
 
     <div class="synopsis">
-        <h2>The Hilarious Crime Spree That Captivated Britain</h2>
+        <h2>The Hilarious Crime Spree That's Captivating Britain</h2>
         <p>When three pensioners accidentally become crime-stoppers, they find themselves indebted to a local mob boss. Follow Blakey, Finley, and Geoff through a series of misadventures involving:</p>
         <ul>
             <li>Failed bank heists</li>
@@ -349,7 +359,8 @@
         <div class="popup-content">
             <button class="popup-close" id="close-popup" aria-label="Close popup">&times;</button>
             <h2 class="popup-title">Get Your Free Short Story!</h2>
-            <p class="popup-description">Sign up for my newsletter and receive an excellent short story called <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
+            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Biggest Trampoline" class="reader-magnet-img">
+            <p class="popup-description">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
             
             <!-- Mailchimp Signup Form -->
                 <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&amp;id=0fe855599d&amp;f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
