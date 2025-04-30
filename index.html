@@ -601,7 +601,7 @@
 
                 if (scrollPosition >= halfway && !popupShownThisSession) {
                     popup.style.display = 'flex';
-                    popup.classList.add('show'); // Trigger popup animation
+                    popup.classList.add('show');
                     document.body.style.overflow = 'hidden';
                     popupShownThisSession = true;
                 }
@@ -627,6 +627,18 @@
                     popup.style.display = 'none';
                     document.body.style.overflow = 'auto';
                 }
+            });
+
+            // Client-side email validation for both forms
+            document.querySelectorAll('#mc-embedded-subscribe-form, #mc-embedded-subscribe-form-email').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const emailInput = form.querySelector('input[name="EMAIL"]');
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(emailInput.value)) {
+                        e.preventDefault();
+                        alert('Please enter a valid email address.');
+                    }
+                });
             });
         });
     </script>
