@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boomer Crew Series by Peter Seddon</title>
+    <!-- Include Amatic SC as a fallback via Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Load Spring Day font (assuming you have the font files) */
+        @font-face {
+            font-family: 'Spring Day';
+            src: url('SpringDay-Regular.woff2') format('woff2'),
+                 url('SpringDay-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --primary: #2A4B7C;
             --accent: #C41E3A;
@@ -44,7 +56,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             padding: 1.5rem;
-            justify-items: center; /* Center the cards in their grid cells */
+            justify-items: center;
         }
 
         .book-card {
@@ -56,21 +68,29 @@
             justify-content: flex-end;
             position: relative;
             overflow: visible;
-            width: fit-content; /* Shrink container to image width */
-            max-width: 100%; /* Prevent overflow on small screens */
-            margin: 0 auto; /* Center the card in the grid cell */
+            width: fit-content;
+            max-width: 100%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2); /* Subtle background for depth */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effect */
         }
 
         .book-cover {
             display: block;
             width: 100%;
-            max-width: 300px; /* Adjust based on desired image size */
-            aspect-ratio: 2 / 3; /* Matches the book cover's 2:3 aspect ratio */
-            object-fit: contain; /* Ensures the entire image is visible */
+            max-width: 350px; /* Increased for more visual impact */
+            aspect-ratio: 2 / 3;
+            object-fit: contain;
             object-position: center;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow applied to the image */
-            z-index: 0; /* Place behind text and overlay */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Enhanced shadow */
+            z-index: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effect */
+        }
+
+        .book-card:hover .book-cover {
+            transform: scale(1.05); /* Slight scale on hover */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Deeper shadow on hover */
         }
 
         .book-card a {
@@ -80,12 +100,12 @@
             width: 100%;
             height: 100%;
             text-decoration: none;
-            z-index: 2; /* Ensure link is clickable above image */
+            z-index: 2;
         }
 
         @media (max-width: 600px) {
             .book-cover {
-                max-width: 250px; /* Slightly smaller on mobile */
+                max-width: 300px; /* Adjusted for mobile */
             }
         }
 
@@ -97,14 +117,20 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 60%);
-            z-index: 1; /* Overlay above image but below text */
+            z-index: 1;
         }
 
         .book-card * {
             position: relative;
             z-index: 2;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.9); /* Sharper text shadow for readability */
+        }
+
+        .book-card h3 {
+            font-family: 'Spring Day', 'Amatic SC', sans-serif; /* Use Spring Day with fallback */
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin: 0.5rem 0;
         }
 
         .synopsis {
@@ -362,4 +388,71 @@
     </div>
 
     <div style="text-align: center; padding: 1.5rem;">
-        <a href="https://www.amazon.co.uk/dp/B0D384G3
+        <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" class="cta-button">GET THE SERIES NOW</a>
+    </div>
+
+    <div class="border-decoration"></div>
+
+    <!-- Popup HTML -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <button class="popup-close" id="close-popup" aria-label="Close popup">×</button>
+            <h2 class="popup-title">Get Your Free Short Story!</h2>
+            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Biggest Trampoline" class="reader-magnet-img">
+            <p class="popup-description">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
+            
+            <!-- Mailchimp Signup Form -->
+            <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&id=0fe855599d&f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                <input type="hidden" name="u" value="Peter Foley">
+                <input type="hidden" name="id" value="0fe855599d">
+                <input type="email" name="EMAIL" placeholder="Your email address" required>
+                <button type="submit" name="subscribe">Send Me The Story!</button>
+            </form>
+            
+            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
+        </div>
+    </div>
+
+    <script>
+        // Track if popup has been shown during this session
+        let popupShownThisSession = false;
+
+        // Show popup when user scrolls halfway down the page
+        window.addEventListener('scroll', function() {
+            const popup = document.getElementById('popup');
+            const scrollPosition = window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const halfway = pageHeight / 2;
+            
+            // Check if user has scrolled past halfway and popup hasn't been shown yet this session
+            if (scrollPosition >= halfway && !popupShownThisSession) {
+                popup.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                popupShownThisSession = true;
+            }
+        });
+
+        // Close popup when X is clicked
+        document.getElementById('close-popup').addEventListener('click', function() {
+            document.getElementById('popup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close popup when clicking outside the content
+        document.getElementById('popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('popup').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
