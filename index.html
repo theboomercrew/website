@@ -123,27 +123,29 @@
         .book-card:nth-child(3) { --index: 3; }
         .book-card:nth-child(4) { --index: 4; }
 
-        .book-cover {
-            display: block;
-            width: 100%;
-            max-width: 350px;
-            aspect-ratio: 2 / 3;
-            object-fit: contain;
-            object-position: center;
-            border-radius: 8px;
-            box-shadow: 0 8px 16px var(--shadow);
-            z-index: 0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.book-cover {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), /* Sharp contact shadow */
+                3px 6px 12px rgba(30, 58, 95, 0.3); /* Softer depth shadow */
+    z-index: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
         .book-card:hover {
             transform: rotate(2deg); /* Slight tilt on hover */
         }
 
-        .book-card:hover .book-cover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.25);
-        }
+.book-card:hover .book-cover {
+    transform: scale(1.05);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.25), /* Sharper shadow on hover */
+                4px 10px 20px 2px rgba(30, 58, 95, 0.4); /* Deeper shadow with slight glow */
+}
 
         .book-card a {
             position: absolute;
