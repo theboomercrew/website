@@ -11,10 +11,10 @@
     <link rel="preload" href="fonts/SpringDayRegular.woff" as="font" type="font/woff" crossorigin>
     <style>
         /* Load Spring Day font from the /fonts/ directory */
-       @font-face {
+        @font-face {
             font-family: 'Spring Day';
-            src: url('SpringDayRegular.woff2') format('woff2'),
-                 url('SpringDayRegular.woff') format('woff');
+            src: url('fonts/SpringDayRegular.woff2') format('woff2'),
+                 url('fonts/SpringDayRegular.woff') format('woff');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -91,7 +91,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             padding: 1.5rem;
-             justify-items: center;
+            justify-items: center;
         }
 
         .book-card {
@@ -167,8 +167,8 @@
         .book-card * {
             position: relative;
             z-index: 2;
-            color: #000; /* Change text color to black */
-            text-shadow: none; /* Remove text-shadow */
+            color: #000;
+            text-shadow: none;
         }
 
         .book-card h3 {
@@ -176,7 +176,9 @@
             font-size: clamp(1.5rem, 4vw, 2rem);
             margin: 0.5rem 0;
             font-weight: normal;
-            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for contrast */
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                        url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+            background-size: auto;
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
         }
@@ -184,7 +186,9 @@
         .book-card p {
             font-size: clamp(0.8rem, 2.5vw, 1rem);
             margin: 0;
-            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for contrast */
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                        url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+            background-size: auto;
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
         }
@@ -387,271 +391,4 @@
             overflow-y: auto;
             transform: scale(0.9);
             opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .popup-overlay.show .popup-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        @media (max-width: 600px) {
-            .popup-content {
-                padding: 1rem;
-                max-width: 95%;
-                max-height: 80vh;
-            }
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--primary);
-            background: none;
-            border: none;
-            transition: color 0.3s ease;
-        }
-
-        .popup-close:hover {
-            color: var(--accent);
-        }
-
-        .popup-title {
-            color: var(--primary);
-            margin-top: 0;
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            font-weight: 600;
-        }
-
-        .popup-description {
-            margin-bottom: 1rem;
-            font-size: clamp(0.8rem, 2.5vw, 1rem);
-            color: #555;
-        }
-
-        .popup-form input[type="email"] {
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            box-sizing: border-box;
-            transition: border-color 0.3s ease;
-        }
-
-        .popup-form input[type="email"]:focus {
-            border-color: var(--accent);
-            outline: none;
-        }
-
-        .popup-form button {
-            background: var(--accent);
-            color: var(--white);
-            border: none;
-            padding: 0.8rem;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            width: 100%;
-            box-sizing: border-box;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .popup-form button:hover {
-            background: #b71c1c;
-            transform: scale(1.02);
-        }
-
-        .reader-magnet-img {
-            max-width: 120px;
-            margin: 0 auto 0.8rem;
-            border: 3px solid var(--gold);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px var(--shadow);
-        }
-
-        @media (min-width: 600px) {
-            .reader-magnet-img {
-                max-width: 150px;
-            }
-        }
-
-        /* Accessibility: Reduce motion for users who prefer it */
-        @media (prefers-reduced-motion: reduce) {
-            .book-card, .tagline, .cta-button, .popup-content {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="border-decoration"></div>
-    
-    <header class="header">
-        <h1>THE BOOMER CREW</h1>
-        <p class="tagline">Cheeky Chappies From The North</p>
-    </header>
-
-    <div class="author-section">
-        <img src="Author image 2.jpg" alt="Peter Seddon">
-        <div>
-            <h2>About the Author</h2>
-            <p>Peter Seddon is a British storyteller renowned for his witty, heartfelt tales that weave humor, nostalgia, and the quirks of everyday life into captivating narratives. With The Boomer Crew series, Seddon shines as a master of character-driven adventures, bringing the irrepressible spirit of his lovable, mischievous retirees to life with charm and authenticity. A self-published gem, his sharp dialogue and knack for blending comedy with poignant moments mark him as a standout voice in contemporary fiction.</p>
-        </div>
-    </div>
-
-    <div class="email-signup">
-        <h2>Get Updates on New Releases</h2>
-        <p id="email-signup-desc">Sign up for my newsletter to stay informed about new books and receive a FREE short Story - The World's Largest Trampoline!</p>
-        <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form-email" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
-            <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
-            <input type="hidden" name="id" value="0fe855599d">
-            <input type="hidden" name="f_id" value="00fcb9edf0">
-            <div style="display: none;">
-                <input type="text" name="b_2eb0ade445997cb80e43e4198_0fe855599d" value="">
-            </div>
-            <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Your email address" aria-describedby="email-signup-desc">
-            <button type="submit" name="subscribe">Subscribe</button>
-        </form>
-    </div>
-
-    <div class="book-grid">
-        <div class="book-card">
-            <img src="Book 1 book cover.jpg" alt="The Boomer Crew Book Cover" class="book-cover">
-            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Boomer Crew"></a>
-            <h3>THE BOOMER CREW</h3>
-            <p>Where it all begins...<br>
-            "A bank heist gone wonderfully wrong"</p>
-        </div>
-        <div class="book-card">
-            <img src="Book 2 book cover.jpg" alt="The Joke That Killed Book Cover" class="book-cover">
-            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Joke That Killed"></a>
-            <h3>THE JOKE THAT KILLED</h3>
-            <p>The Crew returns!<br>
-            "Double trouble and twice the laughs"</p>
-        </div>
-        <div class="book-card">
-            <img src="Book 3 book cover.jpg" alt="Double Up or Quit Book Cover" class="book-cover">
-            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase Double Up or Quit"></a>
-            <h3>DOUBLE UP OR QUIT</h3>
-            <p>Their biggest gamble yet<br>
-            "A Monaco rollercoaster ride!"</p>
-        </div>
-        <div class="book-card">
-            <img src="Book 4 book cover.jpg" alt="Book 4 Coming Soon Book Cover" class="book-cover">
-            <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Book 4 Coming Soon!"></a>
-            <h3>Coming Soon!</h3>
-            <p>Book 4 is on the way!<br>
-            Coming spring 2026</p>
-        </div>
-    </div>
-
-    <div class="synopsis">
-        <h2>The Hilarious Crime Spree That's Captivating Britain</h2>
-        <p>When three pensioners accidentally become crime-stoppers, they find themselves indebted to a local mob boss. Follow Blakey, Finley, and Geoff through a series of misadventures involving:</p>
-        <ul>
-            <li>Failed bank heists</li>
-            <li>Faked deaths</li>
-            <li>Prison swaps</li>
-            <li>Football scandals</li>
-            <li>Monaco mayhem</li>
-        </ul>
-    </div>
-
-    <div style="text-align: center; padding: 1.5rem;">
-        <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" class="cta-button">GET THE SERIES NOW</a>
-    </div>
-
-    <div class="border-decoration"></div>
-
-    <!-- Popup HTML -->
-    <div class="popup-overlay" id="popup" role="dialog" aria-labelledby="popup-title">
-        <div class="popup-content">
-            <button class="popup-close" id="close-popup" aria-label="Close popup">×</button>
-            <h2 class="popup-title" id="popup-title">Get Your Free Short Story!</h2>
-            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Largest Trampoline" class="reader-magnet-img">
-            <p class="popup-description" id="popup-desc">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Largest Trampoline'</strong> absolutely free!</p>
-            
-            <!-- Mailchimp Signup Form -->
-            <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
-                <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
-                <input type="hidden" name="id" value="0fe855599d">
-                <input type="hidden" name="f_id" value="00fcb9edf0">
-                <div style="display: none;">
-                    <input type="text" name="b_2eb0ade445997cb80e43e4198_0fe855599d" value="">
-                </div>
-                <input type="email" name="EMAIL" placeholder="Your email address" required aria-describedby="popup-desc">
-                <button type="submit" name="subscribe">Send Me The Story!</button>
-            </form>
-            
-            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Track if popup has been shown during this session
-            let popupShownThisSession = false;
-            const popup = document.getElementById('popup');
-
-            if (!popup) {
-                console.error('Popup element not found!');
-                return;
-            }
-
-            // Show popup when user scrolls halfway down the page
-            window.addEventListener('scroll', function() {
-                const scrollPosition = window.scrollY;
-                const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const halfway = pageHeight / 2;
-
-                if (scrollPosition >= halfway && !popupShownThisSession) {
-                    popup.style.display = 'flex';
-                    popup.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                    popupShownThisSession = true;
-                }
-            });
-
-            // Close popup when X is clicked
-            document.getElementById('close-popup').addEventListener('click', function() {
-                popup.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            });
-
-            // Close popup when clicking outside the content
-            popup.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // Close popup with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    popup.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // Client-side email validation for both forms
-            document.querySelectorAll('#mc-embedded-subscribe-form, #mc-embedded-subscribe-form-email').forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    const emailInput = form.querySelector('input[name="EMAIL"]');
-                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailPattern.test(emailInput.value)) {
-                        e.preventDefault();
-                        alert('Please enter a valid email address.');
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+            transition: transform 0.3s ease, opacity
