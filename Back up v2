@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boomer Crew Series by Peter Seddon</title>
-    <!-- Import Poppins for modern typography -->
+    <!-- Import Poppins for modern typography and Amatic SC as a fallback -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Preload Spring Day font to reduce FOUT -->
+    <link rel="preload" href="fonts/SpringDayRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SpringDayRegular.woff" as="font" type="font/woff" crossorigin>
     <style>
-        /* Load Spring Day font (assuming you have the font files) */
+        /* Load Spring Day font from the /fonts/ directory */
         @font-face {
             font-family: 'Spring Day';
             src: url('SpringDayRegular.woff2') format('woff2'),
@@ -18,15 +21,14 @@
         }
 
         :root {
-            --primary: #1E3A5F; /* Darker blue for more depth */
-            --accent: #D32F2F; /* Slightly softer red */
-            --gold: #E0B548; /* Warmer gold */
-            --cream: #FFF8E1; /* Softer cream */
+            --primary: #1E3A5F;
+            --accent: #D32F2F;
+            --gold: #E0B548;
+            --cream: #FFF8E1;
             --white: #FFFFFF;
             --shadow: rgba(0, 0, 0, 0.2);
         }
 
-        /* Smooth scrolling for the entire page */
         html {
             scroll-behavior: smooth;
         }
@@ -41,7 +43,6 @@
             overflow-x: hidden;
         }
 
-        /* Subtle background pattern (optional, can be removed if too busy) */
         body::before {
             content: '';
             position: fixed;
@@ -65,9 +66,8 @@
 
         h1 {
             color: var(--white);
-                        font-family: 'Spring Day', 'Amatic SC', sans-serif; /* Apply Spring Day to the main header */
-
-            font-size: clamp(2rem, 6vw, 3.5rem); /* Larger for impact */
+            font-family: 'Spring Day', 'Amatic SC', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
             text-shadow: 3px 3px 0 var(--accent);
             margin: 0;
             font-weight: normal;
@@ -106,11 +106,11 @@
             width: fit-content;
             max-width: 100%;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.5);
             transition: transform 0.3s ease;
-            opacity: 0; /* For fade-in animation */
+            opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: calc(var(--index) * 0.2s); /* Staggered animation */
+            animation-delay: calc(var(--index) * 0.2s);
         }
 
         @keyframes fadeInUp {
@@ -123,29 +123,27 @@
         .book-card:nth-child(3) { --index: 3; }
         .book-card:nth-child(4) { --index: 4; }
 
-.book-cover {
-    display: block;
-    width: 100%;
-    max-width: 350px;
-    aspect-ratio: 2 / 3;
-    object-fit: contain;
-    object-position: center;
-    border-radius: 8px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), /* Sharp contact shadow */
-                3px 6px 12px rgba(30, 58, 95, 0.3); /* Softer depth shadow */
-    z-index: 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-        .book-card:hover {
-            transform: rotate(2deg); /* Slight tilt on hover */
+        .book-cover {
+            display: block;
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 5 / 8;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 8px;
+            box-shadow: 3px 6px 12px rgba(30, 58, 95, 0.4);
+            z-index: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-.book-card:hover .book-cover {
-    transform: scale(1.05);
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.25), /* Sharper shadow on hover */
-                4px 10px 20px 2px rgba(30, 58, 95, 0.4); /* Deeper shadow with slight glow */
-}
+        .book-card:hover {
+            transform: rotate(2deg);
+        }
+
+        .book-card:hover .book-cover {
+            transform: scale(1.05);
+            box-shadow: 4px 10px 20px 3px rgba(30, 58, 95, 0.5);
+        }
 
         .book-card a {
             position: absolute;
@@ -157,38 +155,42 @@
             z-index: 2;
         }
 
+        /* Remove the gradient overlay */
         .book-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 15%, transparent 50%);
-            z-index: 1;
-            transition: background 0.3s ease;
+            display: none;
         }
 
         .book-card:hover::after {
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 15%, rgba(211, 47, 47, 0.2) 50%); /* Subtle red tint on hover */
+            display: none;
         }
 
         .book-card * {
             position: relative;
             z-index: 2;
-            color: var(--white);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+            color: #000;
+            text-shadow: none;
         }
 
         .book-card h3 {
             font-family: 'Spring Day', 'Amatic SC', sans-serif;
             font-size: clamp(1.5rem, 4vw, 2rem);
             margin: 0.5rem 0;
+            font-weight: normal;
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                        url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+            background-size: auto;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
         }
 
         .book-card p {
             font-size: clamp(0.8rem, 2.5vw, 1rem);
             margin: 0;
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                        url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+            background-size: auto;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
         }
 
         @media (max-width: 600px) {
@@ -481,6 +483,14 @@
                 max-width: 150px;
             }
         }
+
+        /* Accessibility: Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            .book-card, .tagline, .cta-button, .popup-content {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -501,17 +511,17 @@
 
     <div class="email-signup">
         <h2>Get Updates on New Releases</h2>
-        <p>Sign up for my newsletter to stay informed about new books and receive a FREE short Story - The World's Largest Trampoline!</p>
-            <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form-email" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
-                <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
-                <input type="hidden" name="id" value="0fe855599d">
-                <input type="hidden" name="f_id" value="00fcb9edf0">
-                <div style="display: none;">
+        <p id="email-signup-desc">Sign up for my newsletter to stay informed about new books and receive a FREE short Story - The World's Largest Trampoline!</p>
+        <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form-email" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
+            <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
+            <input type="hidden" name="id" value="0fe855599d">
+            <input type="hidden" name="f_id" value="00fcb9edf0">
+            <div style="display: none;">
                 <input type="text" name="b_2eb0ade445997cb80e43e4198_0fe855599d" value="">
-    </div>
-    <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Your email address">
-    <button type="submit" name="subscribe">Subscribe</button>
-</form>
+            </div>
+            <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Your email address" aria-describedby="email-signup-desc">
+            <button type="submit" name="subscribe">Subscribe</button>
+        </form>
     </div>
 
     <div class="book-grid">
@@ -564,21 +574,22 @@
     <div class="border-decoration"></div>
 
     <!-- Popup HTML -->
-    <div class="popup-overlay" id="popup">
+    <div class="popup-overlay" id="popup" role="dialog" aria-labelledby="popup-title">
         <div class="popup-content">
             <button class="popup-close" id="close-popup" aria-label="Close popup">×</button>
-            <h2 class="popup-title">Get Your Free Short Story!</h2>
+            <h2 class="popup-title" id="popup-title">Get Your Free Short Story!</h2>
             <img src="reader-magnet.jpg" alt="Free Short Story: The World's Largest Trampoline" class="reader-magnet-img">
-            <p class="popup-description">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Largest Trampoline'</strong> absolutely free!</p>
+            <p class="popup-description" id="popup-desc">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Largest Trampoline'</strong> absolutely free!</p>
             
             <!-- Mailchimp Signup Form -->
-            <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&id=0fe855599d&f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+            <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
                 <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
                 <input type="hidden" name="id" value="0fe855599d">
+                <input type="hidden" name="f_id" value="00fcb9edf0">
                 <div style="display: none;">
                     <input type="text" name="b_2eb0ade445997cb80e43e4198_0fe855599d" value="">
                 </div>
-                <input type="email" name="EMAIL" placeholder="Your email address" required>
+                <input type="email" name="EMAIL" placeholder="Your email address" required aria-describedby="popup-desc">
                 <button type="submit" name="subscribe">Send Me The Story!</button>
             </form>
             
