@@ -4,62 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boomer Crew Series by Peter Seddon</title>
+  
+    <!-- Preload Spring Day font to reduce FOUT -->
+    <link rel="preload" href="fonts/SpringDayRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SpringDayRegular.woff" as="font" type="font/woff" crossorigin>
     <style>
+        /* Load Spring Day font from the /fonts/ directory */
+        @font-face {
+            font-family: 'Spring Day';
+            src: url('SpringDayRegular.woff2') format('woff2'),
+                 url('SpringDayRegular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
-            --primary: #2A4B7C;
-            --accent: #C41E3A;
-            --gold: #D4AF37;
-            --cream: #fad15e;
+            --primary: #1E3A5F;
+            --accent: #D32F2F;
+            --gold: #E0B548;
+            --cream: #FFF8E1;
+            --white: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Verdana', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            background: var(--cream);
-            line-height: 1.5;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            line-height: 1.6;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+            opacity: 0.05;
+            z-index: -1;
         }
 
         .header {
-            background: var(--primary);
-            padding: 1.5rem;
+            background: linear-gradient(90deg, var(--primary) 0%, #355C7D 100%);
+            padding: 2rem 1rem;
             text-align: center;
-            border-bottom: 5px solid var(--gold);
+            border-bottom: 6px solid var(--gold);
+            position: relative;
+            overflow: hidden;
         }
 
         h1 {
-            color: white;
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            text-shadow: 2px 2px var(--accent);
+            color: var(--white);
+            font-family: 'Spring Day', 'Amatic SC', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            text-shadow: 3px 3px 0 var(--accent);
             margin: 0;
+            font-weight: normal;
         }
 
         .tagline {
             color: var(--gold);
             font-style: italic;
-            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .book-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             padding: 1.5rem;
+            justify-items: center;
         }
 
         .book-card {
-            padding: 1rem;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            border-radius: 10px;
             text-align: center;
-            height: 80vh;
-            min-height: 500px;
-            background-size: cover;
-            background-position: center;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             position: relative;
             overflow: visible;
+            width: fit-content;
+            max-width: 100%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: calc(var(--index) * 0.2s);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .book-card:nth-child(1) { --index: 1; }
+        .book-card:nth-child(2) { --index: 2; }
+        .book-card:nth-child(3) { --index: 3; }
+        .book-card:nth-child(4) { --index: 4; }
+
+        .book-cover {
+            display: block;
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 5 / 8;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 8px;
+            box-shadow: 3px 6px 12px rgba(30, 58, 95, 0.4);
+            z-index: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: rotate(2deg);
+        }
+
+        .book-card:hover .book-cover {
+            transform: scale(1.05);
+            box-shadow: 4px 10px 20px 3px rgba(30, 58, 95, 0.5);
         }
 
         .book-card a {
@@ -69,82 +151,140 @@
             width: 100%;
             height: 100%;
             text-decoration: none;
+            z-index: 2;
         }
 
-        @media (max-width: 600px) {
-            .book-card {
-                height: 70vh;
-                min-height: 400px;
-            }
-        }
-
+        /* Remove the gradient overlay */
         .book-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 60%);
-            z-index: 1;
+            display: none;
+        }
+
+        .book-card:hover::after {
+            display: none;
         }
 
         .book-card * {
             position: relative;
             z-index: 2;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            color: #000;
+            text-shadow: none;
+        }
+
+        .book-card h3 {
+            font-family: 'Spring Day', 'Amatic SC', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin: 0.5rem 0;
+            font-weight: normal;
+
+            background-size: auto;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .book-card p {
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            margin: 0;
+
+            background-size: auto;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .book-cover {
+                max-width: 280px;
+            }
+            .book-card h3 {
+                font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+            }
+            .book-card p {
+                font-size: clamp(0.8rem, 2.5vw, 1rem);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .book-cover {
+                max-width: 250px;
+            }
         }
 
         .synopsis {
             background: var(--primary);
-            color: white;
+            color: var(--white);
             padding: 1.5rem;
             margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .synopsis h2 {
+            font-weight: 600;
+            margin-top: 0;
         }
 
         .author-section {
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
             gap: 1.5rem;
             padding: 1.5rem;
-            background: linear-gradient(to right, var(--cream));
+            background: linear-gradient(to right, var(--cream), var(--white));
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         @media (min-width: 768px) {
             .author-section {
                 flex-direction: row;
+                text-align: left;
             }
         }
 
         .author-section img {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border: 5px solid var(--primary);
             border-radius: 50%;
             object-fit: cover;
             max-width: 100%;
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        @media (min-width: 768px) {
+            .author-section img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        .author-section h2 {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         .email-signup {
             background: var(--primary);
-            color: white;
+            color: var(--white);
             padding: 1.5rem;
             margin: 1.5rem;
-            border-radius: 5px;
+            border-radius: 8px;
             text-align: center;
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         .email-signup h2 {
             margin-top: 0;
             color: var(--gold);
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-weight: 600;
         }
 
         .email-signup form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.8rem;
             max-width: 400px;
             margin: 0 auto;
         }
@@ -153,25 +293,37 @@
             padding: 0.8rem;
             border: 2px solid #ddd;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             width: 100%;
             box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-signup input[type="email"]:focus {
+            border-color: var(--accent);
+            outline: none;
         }
 
         .email-signup button {
             background: var(--accent);
-            color: white;
+            color: var(--white);
             border: none;
             padding: 0.8rem;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             width: 100%;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .email-signup button:hover {
+            background: #b71c1c;
+            transform: scale(1.02);
         }
 
         .cta-button {
             background: var(--accent);
-            color: white;
+            color: var(--white);
             padding: 0.8rem 1.5rem;
             border: none;
             border-radius: 5px;
@@ -180,10 +332,24 @@
             display: inline-block;
             margin: 0.5rem 0;
             text-decoration: none;
+            box-shadow: 0 4px 8px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
         }
 
         .border-decoration {
-            height: 10px;
+            height: 8px;
             background: repeating-linear-gradient(
                 45deg,
                 var(--gold),
@@ -205,21 +371,37 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 1rem;
+            padding: 0.5rem;
             box-sizing: border-box;
         }
 
         .popup-content {
-            background: white;
+            background: linear-gradient(135deg, var(--white) 0%, #f5f5f5 100%);
             padding: 1.5rem;
-            border-radius: 10px;
-            max-width: 500px;
+            border-radius: 12px;
+            max-width: 90%;
             width: 100%;
             text-align: center;
             position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            max-height: 90vh;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            max-height: 85vh;
             overflow-y: auto;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .popup-overlay.show .popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .popup-content {
+                padding: 1rem;
+                max-width: 95%;
+                max-height: 80vh;
+            }
         }
 
         .popup-close {
@@ -231,52 +413,80 @@
             color: var(--primary);
             background: none;
             border: none;
-            padding: 0;
+            transition: color 0.3s ease;
+        }
+
+        .popup-close:hover {
+            color: var(--accent);
         }
 
         .popup-title {
             color: var(--primary);
             margin-top: 0;
-            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 600;
         }
 
         .popup-description {
-            margin-bottom: 1.2rem;
-            font-size: clamp(0.9rem, 3vw, 1rem);
+            margin-bottom: 1rem;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            color: #555;
         }
 
         .popup-form input[type="email"] {
             width: 100%;
             padding: 0.8rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             border: 2px solid #ddd;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .popup-form input[type="email"]:focus {
+            border-color: var(--accent);
+            outline: none;
         }
 
         .popup-form button {
             background: var(--accent);
-            color: white;
+            color: var(--white);
             border: none;
             padding: 0.8rem;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             width: 100%;
             box-sizing: border-box;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
         .popup-form button:hover {
-            background: #a51830;
+            background: #b71c1c;
+            transform: scale(1.02);
         }
 
-          .reader-magnet-img {
-            max-width: 150px;
-            margin: 0 auto 1rem;
+        .reader-magnet-img {
+            max-width: 120px;
+            margin: 0 auto 0.8rem;
             border: 3px solid var(--gold);
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        @media (min-width: 600px) {
+            .reader-magnet-img {
+                max-width: 150px;
+            }
+        }
+
+        /* Accessibility: Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            .book-card, .tagline, .cta-button, .popup-content {
+                animation: none !important;
+                transition: none !important;
+            }
         }
     </style>
 </head>
@@ -291,44 +501,50 @@
     <div class="author-section">
         <img src="Author image 2.jpg" alt="Peter Seddon">
         <div>
-            <h2 style="color: var(--primary); text-align: center;">About the Author</h2>
-            <p>Peter Seddon is a British storyteller renowned for his witty, heartfelt tales that weave humor, nostalgia, and the quirks of everyday life into captivating narratives. With The Boomer Crew series, Seddon shines as a master of character-driven adventures, bringing the irrepressible spirit of his lovable, mischievous retirees to life with charm and authenticity. A self-published gem, his sharp dialogue and knack for blending comedy with poignant moments mark him as a standout voice in contemporary fiction.
-
-</p>
+            <h2>About the Author</h2>
+            <p>Peter Seddon is a British storyteller renowned for his witty, heartfelt tales that weave humor, nostalgia, and the quirks of everyday life into captivating narratives. With The Boomer Crew series, Seddon shines as a master of character-driven adventures, bringing the irrepressible spirit of his lovable, mischievous retirees to life with charm and authenticity. A self-published gem, his sharp dialogue and knack for blending comedy with poignant moments mark him as a standout voice in contemporary fiction.</p>
         </div>
     </div>
 
     <div class="email-signup">
         <h2>Get Updates on New Releases</h2>
-        <p>Sign up for my newsletter to stay informed about new books and recieve a FREE short Story - The World's Biggest Trampoline!</p>
-        <form action="https://[YOURMAILCHIMPACCOUNT].list-manage.com/subscribe/post" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-            <input type="hidden" name="u" value="[YOURMAILCHIMPUSERID]">
-            <input type="hidden" name="id" value="[YOURMAILCHIMPLISTID]">
-            <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Your email address">
+        <p id="email-signup-desc">Sign up for my newsletter to stay informed about new books and receive a FREE short Story - The World's Largest Trampoline!</p>
+        <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form-email" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
+            <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
+            <input type="hidden" name="id" value="0fe855599d">
+            <input type="hidden" name="f_id" value="00fcb9edf0">
+            <div style="display: none;">
+                <input type="text" name="b_2eb0ade445997cb80e43e4198_0fe855599d" value="">
+            </div>
+            <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Your email address" aria-describedby="email-signup-desc">
             <button type="submit" name="subscribe">Subscribe</button>
         </form>
     </div>
 
     <div class="book-grid">
-        <div class="book-card" style="background-image: url('Book 1 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 1 book cover.jpg" alt="The Boomer Crew Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Boomer Crew"></a>
             <h3>THE BOOMER CREW</h3>
             <p>Where it all begins...<br>
             "A bank heist gone wonderfully wrong"</p>
         </div>
-        <div class="book-card" style="background-image: url('Book 2 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 2 book cover.jpg" alt="The Joke That Killed Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase The Joke That Killed"></a>
             <h3>THE JOKE THAT KILLED</h3>
             <p>The Crew returns!<br>
             "Double trouble and twice the laughs"</p>
         </div>
-        <div class="book-card" style="background-image: url('Book 3 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 3 book cover.jpg" alt="Double Up or Quit Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Purchase Double Up or Quit"></a>
             <h3>DOUBLE UP OR QUIT</h3>
             <p>Their biggest gamble yet<br>
             "A Monaco rollercoaster ride!"</p>
         </div>
-             <div class="book-card" style="background-image: url('Book 4 book cover.jpg')">
+        <div class="book-card">
+            <img src="Book 4 book cover.jpg" alt="Book 4 Coming Soon Book Cover" class="book-cover">
             <a href="https://www.amazon.co.uk/dp/B0D384G3HV?binding=kindle_edition&ref=dbs_dp_rwt_sb_pc_tkin" aria-label="Book 4 Coming Soon!"></a>
             <h3>Coming Soon!</h3>
             <p>Book 4 is on the way!<br>
@@ -355,18 +571,22 @@
     <div class="border-decoration"></div>
 
     <!-- Popup HTML -->
-    <div class="popup-overlay" id="popup">
+    <div class="popup-overlay" id="popup" role="dialog" aria-labelledby="popup-title">
         <div class="popup-content">
-            <button class="popup-close" id="close-popup" aria-label="Close popup">&times;</button>
-            <h2 class="popup-title">Get Your Free Short Story!</h2>
-            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Biggest Trampoline" class="reader-magnet-img">
-            <p class="popup-description">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Biggest Trampoline'</strong> absolutely free!</p>
+            <button class="popup-close" id="close-popup" aria-label="Close popup">×</button>
+            <h2 class="popup-title" id="popup-title">Get Your Free Short Story!</h2>
+            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Largest Trampoline" class="reader-magnet-img">
+            <p class="popup-description" id="popup-desc">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Largest Trampoline'</strong> absolutely free!</p>
             
             <!-- Mailchimp Signup Form -->
-                <form action="https://peterfoley.us5.list-manage.com/subscribe/post?u=2eb0ade445997cb80e43e4198&amp;id=0fe855599d&amp;f_id=00fcb9edf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-                <input type="hidden" name="u" value="Peter Foley">
+            <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
+                <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
                 <input type="hidden" name="id" value="0fe855599d">
-                <input type="email" name="EMAIL" placeholder="Your email address" required>
+                <input type="hidden" name="f_id" value="00fcb9edf0">
+                <div style="display: none;">
+                    <input type="text" name="b_2eb0ade445997cb80e43e4198_0fe855599d" value="">
+                </div>
+                <input type="email" name="EMAIL" placeholder="Your email address" required aria-describedby="popup-desc">
                 <button type="submit" name="subscribe">Send Me The Story!</button>
             </form>
             
@@ -375,44 +595,63 @@
     </div>
 
     <script>
-        // Track if popup has been shown during this session
-        let popupShownThisSession = false;
-
-        // Show popup when user scrolls halfway down the page
-        window.addEventListener('scroll', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track if popup has been shown during this session
+            let popupShownThisSession = false;
             const popup = document.getElementById('popup');
-            const scrollPosition = window.scrollY;
-            const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const halfway = pageHeight / 2;
-            
-            // Check if user has scrolled past halfway and popup hasn't been shown yet this session
-            if (scrollPosition >= halfway && !popupShownThisSession) {
-                popup.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-                popupShownThisSession = true;
+
+            if (!popup) {
+                console.error('Popup element not found!');
+                return;
             }
-        });
 
-        // Close popup when X is clicked
-        document.getElementById('close-popup').addEventListener('click', function() {
-            document.getElementById('popup').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
+            // Show popup when user scrolls halfway down the page
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const halfway = pageHeight / 2;
 
-        // Close popup when clicking outside the content
-        document.getElementById('popup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
+                if (scrollPosition >= halfway && !popupShownThisSession) {
+                    popup.style.display = 'flex';
+                    popup.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                    popupShownThisSession = true;
+                }
+            });
+
+            // Close popup when X is clicked
+            document.getElementById('close-popup').addEventListener('click', function() {
+                popup.style.display = 'none';
                 document.body.style.overflow = 'auto';
-            }
-        });
+            });
 
-        // Close popup with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.getElementById('popup').style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
+            // Close popup when clicking outside the content
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Close popup with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    popup.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Client-side email validation for both forms
+            document.querySelectorAll('#mc-embedded-subscribe-form, #mc-embedded-subscribe-form-email').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const emailInput = form.querySelector('input[name="EMAIL"]');
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(emailInput.value)) {
+                        e.preventDefault();
+                        alert('Please enter a valid email address.');
+                    }
+                });
+            });
         });
     </script>
 </body>
