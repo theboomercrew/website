@@ -91,6 +91,7 @@
             gap: 1.5rem;
             padding: 1.5rem;
             justify-items: center;
+            align-items: start
         }
 
         .book-card {
@@ -99,7 +100,7 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-start;
             position: relative;
             overflow: visible;
             width: fit-content;
@@ -508,7 +509,7 @@
 
     <div class="email-signup">
         <h2>Get Updates on New Releases</h2>
-        <p id="email-signup-desc">Sign up for my newsletter to stay informed about new books and receive a FREE short Story - The World's Largest Trampoline!</p>
+        <p id="email-signup-desc">Sign up for my newsletter to stay informed about new books and receive a FREE teaser tale - Rocket Booster Trial Run!</p>
         <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form-email" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
             <input type="hidden" name="u" value="2eb0ade445997cb80e43e4198">
             <input type="hidden" name="id" value="0fe855599d">
@@ -574,9 +575,9 @@
     <div class="popup-overlay" id="popup" role="dialog" aria-labelledby="popup-title">
         <div class="popup-content">
             <button class="popup-close" id="close-popup" aria-label="Close popup">×</button>
-            <h2 class="popup-title" id="popup-title">Get Your Free Short Story!</h2>
-            <img src="reader-magnet.jpg" alt="Free Short Story: The World's Largest Trampoline" class="reader-magnet-img">
-            <p class="popup-description" id="popup-desc">Sign up for my newsletter and receive an exclusive short story <strong>'The World's Largest Trampoline'</strong> absolutely free!</p>
+            <h2 class="popup-title" id="popup-title">Get Your Free Teaser Tale!</h2>
+            <img src="reader-magnet.png" alt="Free Teaser Tale: Rocket Booster Trial Run" class="reader-magnet-img">
+            <p class="popup-description" id="popup-desc">Sign up for my newsletter and receive an exclusive teaser tale <strong>'Rocket Booster Trial Run'</strong> absolutely free!</p>
             
             <!-- Mailchimp Signup Form -->
             <form action="https://peterfoley.us5.list-manage.com/subscribe/post" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" rel="noopener noreferrer">
@@ -590,7 +591,7 @@
                 <button type="submit" name="subscribe">Send Me The Story!</button>
             </form>
             
-            <p><small>I respect your privacy. Unsubscribe at any time.</small></p>
+            <p><small>I respect your privacy. Unsubscribe at any time. P.S. The email might take a few mins to be delivered, so please re-check your mail if it doesn’t arrive right away. Oh, and double check your spam/ promotions folder.</small></p>
         </div>
     </div>
 
