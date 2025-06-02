@@ -209,6 +209,21 @@
             }
         }
 
+        @media (max-width: 600px) {
+    .short-stories-section .book-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 280px; /* Matches the book-cover max-width for consistency */
+        margin: 0 auto;
+    }
+    .short-stories-section .book-cover {
+        display: block;
+        margin: 0 auto;
+    }
+}
+        
         .synopsis {
             background: var(--primary);
             color: var(--white);
